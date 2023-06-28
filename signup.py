@@ -169,7 +169,7 @@ def go_for_database(fullname, username,phonenumber, email,password):
         
   except Exception as e:
      print(e, 'This is your error')
-     messagebox.showerror('error', e)
+     messagebox.showerror("somethingwrong",'Pleased try again!')
 
 
 
