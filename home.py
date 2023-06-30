@@ -6,16 +6,12 @@ from tkinter import Text, font,  messagebox, filedialog
 from database import *
 
 
-
-
-
 # from tkinter import font
 
 
 # Pickle for the cache the user data
-import pickle,os
-
-
+import pickle
+import os
 
 
 # Using the tkinter bootstrap
@@ -28,21 +24,6 @@ root.title("BikeBreeze")
 
 
 # from client import socket
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def get_data():
@@ -84,7 +65,7 @@ def check_user_is_login_or_not():
             username_from_back = data_s[0][2]
             email_from_back = data_s[0][4]
 
-            print(data_s,'HELLO HERO')
+            print(data_s, 'HELLO HERO')
             print(data_s[0][4])
     except Exception as e:
         messagebox.showerror('error', 'Somethingwrong pleased try again!')
@@ -112,35 +93,38 @@ check_user_is_login_or_not()
 
 track_home = 1
 iaminprofilifiamin2 = 1
+
+
 def go_for_bikes():
-  try:
-    global go_for_bikes, track_home
-    # from client import socket
-    track_home = 1
-   #  mainframe.pack()
-    Home_FRAME.place_forget()
-    mainframe.pack(side='left', fill='y')
-    if(iaminprofilifiamin2==2):
-        return
-    bike_upload_frame.place(x=233, y=104)
+    try:
+        global go_for_bikes, track_home
+        # from client import socket
+        track_home = 1
+       #  mainframe.pack()
+        Home_FRAME.place_forget()
+        mainframe.pack(side='left', fill='y')
+        if (iaminprofilifiamin2 == 2):
+            return
+        # bike_upload_frame.place(x=233, y=104)
 
-
-    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # Go  for bikes end
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # Go Home
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-  except Exception as e:
-     print(e)
+    except Exception as e:
+        print(e)
+
+
 def go_home(event):
     try:
         global track_home, for_l_sm_fon
@@ -150,10 +134,11 @@ def go_home(event):
         print('Done')
         mainframe.pack_forget()
         bike_upload_frame.place_forget()
-  
+        # canvasss.destroy()
 
-   #    amainframe.forget()
-   #    look_uploadsmain.forget()
+
+       #    amainframe.forget()
+       #    look_uploadsmain.forget()
         ft = font.Font(family="Montserrat", size=40,
                        weight="bold", slant="italic")
         Home_FRAME = tk.Frame(root, height=680, width=1510, bg='black')
@@ -162,7 +147,6 @@ def go_home(event):
             Home_FRAME, text='OLD BIIKES VS STEETSBIKE', bg='black', fg='white', font=ft)
         label_big.place(x=12, y=52)
 
-        
         for_l_sm_fon = font.Font(
             family="Montserrat", size=10, weight="bold", slant="italic")
 
@@ -185,20 +169,19 @@ def go_home(event):
         b1.place(x=233, y=199)
         track_home += 1
     except EXCEPTION as e:
-        messagebox.showerror('error', 'SomeThing wrong please try again')
+        messagebox.showerror('error', 'SomeThing wrong please try again', e)
 
-   #    for_profile = Image.open('a.jpg')
-   #    profile_height = 680
-   #    profile_width = 1515
-   #    resize_profile = for_profile.resize((profile_width, profile_height), Image.LANCZOS)
-   #    profileImage = ImageTk.PhotoImage(resize_profile)
-   #    profile_label = tk.Label(Home_FRAME,text='profile', image=profileImage, cursor='hand2', bg='orange', fg='red')
-   #    profile_label.image = profileImage
-   #    profile_label.place(x=7,y=4)
+       #    for_profile = Image.open('a.jpg')
+       #    profile_height = 680
+       #    profile_width = 1515
+       #    resize_profile = for_profile.resize((profile_width, profile_height), Image.LANCZOS)
+       #    profileImage = ImageTk.PhotoImage(resize_profile)
+       #    profile_label = tk.Label(Home_FRAME,text='profile', image=profileImage, cursor='hand2', bg='orange', fg='red')
+       #    profile_label.image = profileImage
+       #    profile_label.place(x=7,y=4)
 
-   #    label= tk.Label(Home_FRAME, text='My anme')
-   #    label.place(x=12)
-
+       #    label= tk.Label(Home_FRAME, text='My anme')
+       #    label.place(x=12)
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -215,13 +198,20 @@ def go_home(event):
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+def go_and_destroy_cavnas():
+        global track_canvas
+        canvasss.pack_forget()
+        track_canvas = 1
+      
 
 def go_toprofile(self):
     global iaminprofilifiamin2
     iaminprofilifiamin2 = 2
     bike_upload_frame.place_forget()
     look_uploadsmain.place(x=254, y=109)
-    pass
+    go_and_destroy_cavnas()
+
+ 
 
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -233,55 +223,61 @@ def go_toprofile(self):
 
 
 def bike_uploaded_click(event):
-    global iaminprofilifiamin2
+    global iaminprofilifiamin2,track_canvas
     iaminprofilifiamin2 = 1
     look_uploadsmain.place_forget()
     bike.config(bg='orange')
     profile.config(bg='orange2')
     bike_upload_frame.place(x=233, y=104)
     print('Done')
+    # messagebox.showerror('e')
+    # Forget the services page
+    canvasss.pack_forget()
+    track_canvas = 1
+
 
 
 bike__image = ''
+
+
 def bike_upload():
     try:
-     #    global bike__image
-     #    bike__image = ''
+        #    global bike__image
+        #    bike__image = ''
         def upload_bike():
-          try:
-            global bike__image,file__,resize_Bike
-            filepath = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg;*.jpeg;*.gif")])    
-            if (filepath):
+            try:
+                global bike__image, file__, resize_Bike
+                filepath = filedialog.askopenfilename(
+                    filetypes=[("Image Files", "*.png;*.jpg;*.jpeg;*.gif")])
+                if (filepath):
                     file__ = os.path.basename(filepath)
                     # GORKHA
                     print(1)
                     print(file__, 'saarock')
-                    bike__image  = str(file__)
+                    bike__image = str(file__)
                     print(2)
                     # price(bike__image,'aayush')
-                    print(filepath,'this is path')
+                    print(filepath, 'this is path')
                     print(3)
                     my_bike_image = Image.open(filepath)
                     bike_height = 260
                     bike_width = 350
-                    messagebox.showerror('Done','Donwe')
-                    resize_Bike = my_bike_image.resize((bike_width,bike_height), Image.LANCZOS)
+                    messagebox.showerror('Done', 'Donwe')
+                    resize_Bike = my_bike_image.resize(
+                        (bike_width, bike_height), Image.LANCZOS)
                     # messagebox.showerror('a','adf')
                     uploading_img1Bike = ImageTk.PhotoImage(resize_Bike)
                     bike_label.config(image=uploading_img1Bike)
                     bike_label.image = uploading_img1Bike
-          except Exception as e:
-             print(e)
+            except Exception as e:
+                print(e)
 
-
-            
-   #    filepath = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg;*.jpeg;*.gif")])
-
+       #    filepath = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg;*.jpeg;*.gif")])
 
         def gets_alltheinfo():
             try:
                 global b_n, b_number, ava_day, price_, locations, conditon__, phn_number, price__
-            
+
                 b_nn = bike_name.get()
                 b_nnumber = bike1_no.get()
                 phn_numbers = phone_no.get()
@@ -289,8 +285,9 @@ def bike_upload():
                 prices = bike_price.get()
                 location = bike_pickup_location.get()
                 conditons = bike_conditon.get()
-            
-               
+
+
+
                 b_n = b_nn
                 b_number = b_nnumber
                 ava_day = ava_days
@@ -303,18 +300,15 @@ def bike_upload():
                 # values = (b_n,  phn_number, locations,price_,conditon,ava_day, bike__image,)
                 # print(values)/
                 # return
-            
+
                 # return
 
-
-                print(bike__image,type(bike__image),'IF IFIFIFIFIFIFIFIFIF')
+                print(bike__image, type(bike__image), 'IF IFIFIFIFIFIFIFIFIF')
                 print(bike__image is None)
 
-                
-                if(not bike__image):
-                        messagebox.showinfo('info','pleased select the image')
-                        return 'mes'
-                
+                if (not bike__image):
+                    messagebox.showinfo('info', 'pleased select the image')
+                    return 'mes'
 
                 if (b_nn and b_nnumber and phn_numbers and ava_days and prices and locations and conditons):
                     if (not phn_numbers.isdigit()):
@@ -362,9 +356,8 @@ def bike_upload():
                 print(to_f)
                 if (to_f == 'True'):
                     print('I AM TRUE NOW I AM, EXECUTING')
-                    
+
                     # print(f'bn {b_n} ph {phn_number}, l {locations}, p {price_}, c{conditon}, a{ava_day},b_id{bike__image},e{email_from_back} {user_id_from_back}hh')
-                    
 
                     #     If true then let'screate a table if not exist and save if table already exist then save
 
@@ -375,15 +368,15 @@ def bike_upload():
                     username = username_from_back
                     email = email_from_back
                     available = 'yes'
-                    print(user_id, email, username,'OK XA TW K AYRR')
+                    print(user_id, email, username, 'OK XA TW K AYRR')
 
-                    if(user_id and username and email and available =='yes'):
-                     if (len(y_n)<=0):
-                     #    Creat the table if not
-                        table_name = "userbikes"
-                        uploaded_date = "uploaddate"
-                        
-                        t_b = f"""
+                    if (user_id and username and email and available == 'yes'):
+                        if (len(y_n) <= 0):
+                            #    Creat the table if not
+                            table_name = "userbikes"
+                            uploaded_date = "uploaddate"
+
+                            t_b = f"""
                         CREATE TABLE {table_name} (
                         id INT AUTO_INCREMENT PRIMARY KEY,
                         bikename VARCHAR(300),
@@ -399,74 +392,79 @@ def bike_upload():
                         email VARCHAR(250),
                         {uploaded_date} DATE NOT NULL DEFAULT (CURRENT_DATE())
     )
-    """                 
-                        cur_sor.execute(t_b)
-                        print(1)
-                        mydb.commit()
-                        print('Done')
-                        insert_datas = '''
-        INSERT INTO userbikes (bikename, userid, username  ,phonenumber,  location,price ,bikecondition,days, available , bikeimage  ,email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s)
-        '''             
-                        print(2)
-                        values = (b_n, user_id, username, phn_number, locations,price__, conditon__,ava_day, available ,bike__image, email)
-                        print(3)
-                        print(values)
-                        messagebox.showerror('a','AAA   ')
-                        cur_sor.execute(insert_datas, values)
-                        print(4)
-                        mydb.commit()
-                        print(6)
-                        messagebox.showinfo('Done','Uploaded')
-
-# Save the photo in the folder
-                        dir_ = f'uploadedbike/{file__}'
-                        if (os.path.exists('uploadedbike')):
-                           resize_Bike.save(dir_)
-                        else:
-                           os.makedirs('uploadedbike')
-                           resize_Bike.save(dir_)
-                    
-                     else:
-                        print('I come')
-                        query = 'SELECT * FROM userbikes WHERE userid = %s' 
-                        value__ = (user_id,)
-                        print(0)
-                        print(value__)
-                        cur_sor.execute(query,value__)
-                        print(1)
-                        l = cur_sor.fetchall()
-                        print(2)
-                        print(2)
-                        print(l,'HAHAHAHAHAHHA')
-                        # print(len(1))
-                        if(len(l)>0):
-                            messagebox.showinfo('Note:','You can only add one bike!')
-                            return
-                        else:
-                            print(3)
+    """
+                            cur_sor.execute(t_b)
+                            print(1)
+                            mydb.commit()
+                            print('Done')
                             insert_datas = '''
         INSERT INTO userbikes (bikename, userid, username  ,phonenumber,  location,price ,bikecondition,days, available , bikeimage  ,email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s)
-        '''             
-                            print(4)
-                            values = (b_n, user_id, username, phn_number, locations,price__, conditon__,ava_day, available ,bike__image, email)
+        '''
+                            print(2)
+                            values = (b_n, user_id, username, phn_number, locations,
+                                      price__, conditon__, ava_day, available, bike__image, email)
+                            print(3)
+                            print(values)
+                            messagebox.showerror('a', 'AAA   ')
                             cur_sor.execute(insert_datas, values)
+                            print(4)
                             mydb.commit()
+                            print(6)
+                            messagebox.showinfo('Done', 'Uploaded')
+
+# Save the photo in the folder
                             dir_ = f'uploadedbike/{file__}'
                             if (os.path.exists('uploadedbike')):
-                              resize_Bike.save(dir_)
+                                resize_Bike.save(dir_)
                             else:
-                              os.makedirs('uploadedbike')
-                              resize_Bike.save(dir_)
-                            messagebox.showinfo('sucess','Uploaded')  
-                        
+                                os.makedirs('uploadedbike')
+                                resize_Bike.save(dir_)
+
+                        else:
+                            print('I come')
+                            query = 'SELECT * FROM userbikes WHERE userid = %s'
+                            value__ = (user_id,)
+                            print(0)
+                            print(value__)
+                            cur_sor.execute(query, value__)
+                            print(1)
+                            l = cur_sor.fetchall()
+                            print(2)
+                            print(2)
+                            print(l, 'HAHAHAHAHAHHA')
+                            # print(len(1))
+                            if (len(l) > 0):
+                                messagebox.showinfo(
+                                    'Note:', 'You can only add one bike!')
+                                return
+                            else:
+                                print(3)
+                                insert_datas = '''
+        INSERT INTO userbikes (bikename, userid, username  ,phonenumber,  location,price ,bikecondition,days, available , bikeimage  ,email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s)
+        '''
+                                print(4)
+                                values = (b_n, user_id, username, phn_number, locations,
+                                          price__, conditon__, ava_day, available, bike__image, email)
+                                cur_sor.execute(insert_datas, values)
+                                mydb.commit()
+                                dir_ = f'uploadedbike/{file__}'
+                                if (os.path.exists('uploadedbike')):
+                                    resize_Bike.save(dir_)
+                                else:
+                                    os.makedirs('uploadedbike')
+                                    resize_Bike.save(dir_)
+                                messagebox.showinfo('sucess', 'Uploaded')
+
                     else:
-                        messagebox.showerror('er', 'Something wrong pleased try again')
+                        messagebox.showerror(
+                            'er', 'Something wrong pleased try again')
                 elif (to_f == 'mes'):
                     messagebox.showinfo('info',
-                        'Pleased read outrulein the setting rule section')
+                                        'Pleased read outrulein the setting rule section')
 
                 else:
-                    messagebox.showinfo('info', 'Please provide data or correct data.')
+                    messagebox.showinfo(
+                        'info', 'Please provide data or correct data.')
                     return
                 print('Done')
             except Exception as e:
@@ -478,11 +476,11 @@ def bike_upload():
             root, height=644, width=1244, bg='lightgray', borderwidth=1, relief=tk.RAISED)
         bike_upload_frame.place_forget()
         bike_name = tk.Label(bike_upload_frame, text='bikename')
-     #    bike_name.place(x=12)
-     #    bikename_Text = tk.Text(bike_upload_frame, width=12)
+        #    bike_name.place(x=12)
+        #    bikename_Text = tk.Text(bike_upload_frame, width=12)
         bike_name.place(x=122)
 
-   #  red
+       #  red
         frame = Frame(bike_upload_frame, width=450,
                       height=500, bg="white", border=1)
         frame.place(x=600, y=80)
@@ -557,7 +555,8 @@ def bike_upload():
         conditon = Label(frame, text="Conditon", fg="black",
                          bg="white", font="Courier 14 bold")
         conditon.place(x=15, y=350)
-        bike_conditon = Entry(frame, width=20, borderwidth=3, font="Courier 14 bold",bg='red')
+        bike_conditon = Entry(frame, width=20, borderwidth=3,
+                              font="Courier 14 bold", bg='red')
         bike_conditon.place(x=140, y=350)
 
         btn = Button(frame, text="Post", fg="white", width=10, borderwidth=2,
@@ -574,6 +573,138 @@ bike_upload()
 style.theme_use("clam")
 
 
+
+track_canvas = 1
+def go_to_theservicespage(event):
+ global iaminprofilifiamin2
+ global  canvasss,track_canvas
+ if(track_canvas == 2):
+     return
+ try:
+   
+    iaminprofilifiamin2 = 1
+    look_uploadsmain.place_forget()
+    bike.config(bg='orange')
+    profile.config(bg='orange2')
+    def on_mousewheel(event):
+      if(canvasss):
+          canvasss.yview_scroll(int(-1*(event.delta/120)), "units")
+
+# Create the main Tkinter window
+
+
+    # ////////////////////////////////////
+    # ////////////////////////////////////
+    # getting allthe data from the database
+    # ////////////////////////////////////
+    # ////////////////////////////////////
+
+      sql = 'SELECT * FROM userbikes' 
+      cur_sor.execute(sql)
+      datas = cur_sor.fetchall()
+      print(datas,'HELLO IDICHCHHA GAUTAM ')
+
+
+        # ////////////////////////////////////
+    # ////////////////////////////////////
+    # getting allthe data from the database End
+    # ////////////////////////////////////
+    # ////////////////////////////////////
+   
+# Create a scrollable frame
+    canvasss = tk.Canvas(root, width=1100, height=1100, borderwidth=0, highlightthickness=0,)
+#  canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    canvasss.pack()
+
+
+# Create a scrollbar and associate it with the canvas
+    scrollbar = tk.Scrollbar(canvasss , orient=tk.VERTICAL, command=canvasss.yview)
+    scrollbar.pack()
+    canvasss.configure(yscrollcommand=scrollbar.set)
+
+# Add content to the canvas
+    canvas_frame = tk.Frame(canvasss,bg='black',height=1242, width=2222, background='white')
+    canvas_frame.place(x=222)
+    canvasss.create_window((0, 0), window=canvas_frame, anchor=tk.NW)
+
+
+    for i in range(50):
+      item_frame = tk.Frame(canvas_frame, width=610, height=430, bg="lightgray", borderwidth=1, relief=tk.RAISED,padx=12, pady=12)
+      item_frame.grid(row=i, column=0,padx=12,pady=12)
+      up_date__ = Label(item_frame, text='date', bg='orange')
+      up_date__.place(x=23, y=23)
+      name_bike__ = Entry(item_frame, text='Hello', bg='red')
+      name_bike__.place(x=12, y=43)
+      name_model__ = Entry(item_frame, text='Model', bg='orange')
+      name_model__.place(x=23, y=83)
+      phone_number__ = Entry(item_frame, text='890797987', bg='orange')
+      phone_number__.place(x=23, y=122)
+      conditon__ofbike__ = Entry(
+      item_frame, text='Condition', bg='orange')
+      conditon__ofbike__.place(x=12, y=133)
+      price_of_bike__ = Entry(item_frame, text='23234')
+      price_of_bike__.place(x=23, y=144)
+      available_or_not__ = tk.Button(
+      item_frame, text='Add to card', bg='#f15d43')
+      available_or_not__.place(x=0, y=166)
+    #   makechange__ = tk.Button(
+    #   item_frame, text='save change', bg='#f15d43')
+    #   makechange__.place(x=0, y=226)
+
+      item_frame__ = tk.Frame(canvas_frame, width=610, height=430, bg="lightgray", borderwidth=1, relief=tk.RAISED, padx=12, pady=12)
+      item_frame__.grid(row=i,column=1,padx=12,pady=12)
+      up_date___ = Label(item_frame__, text='date', bg='orange')
+      up_date___.place(x=23, y=23)
+      name_bike___ = Entry(item_frame__, text='Hello', bg='red')
+      name_bike___.place(x=12, y=43)
+      name_model___ = Entry(item_frame__, text='Model', bg='orange')
+      name_model___.place(x=23, y=83)
+      phone_number___ = Entry(item_frame__, text='890797987', bg='orange')
+      phone_number___.place(x=23, y=122)
+      conditon__ofbike___ = Entry(
+      item_frame__, text='Condition', bg='orange')
+      conditon__ofbike___.place(x=12, y=133)
+      price_of_bike___ = Entry(item_frame__, text='23234')
+      price_of_bike___.place(x=23, y=144)
+      available_or_not___ = tk.Button(
+      item_frame__, text='Add to card', bg='#f15d43')
+      available_or_not___.place(x=0, y=166)
+    #   makechange___ = tk.Button(
+    #   item_frame__, text='save change', bg='#f15d43')
+    #   makechange___.place(x=0, y=226)
+
+        #  break
+# Configure the canvas to scroll with the mouse wheel
+    canvasss.bind_all("<MouseWheel>", on_mousewheel)
+
+# Configure the canvas to adjust scroll region when resized
+    def configure_canvas(event):
+        canvasss.configure(scrollregion=canvasss.bbox("all"))
+ 
+    canvasss.bind("<Configure>", configure_canvas)
+
+# Update the scroll region to include all the content
+    canvas_frame.update_idletasks()
+    canvasss.configure(scrollregion=canvas_frame.bbox("all"))
+
+# Add the canvas to the window
+    canvasss.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    track_canvas = 2
+
+
+
+
+
+
+
+
+
+
+    
+    # bike_upload_frame.place(x=233, y=104)
+ except Exception as e:
+     print(e)
+
 def navs():
     global profile_label
     try:
@@ -582,7 +713,8 @@ def navs():
         mainframe.pack(side='left', fill='y')
         amainframe = tk.Frame(root, bg='snow', width=503, height=63)
         amainframe.pack(fill='x')
-        label_ = tk.Label(mainframe, text='Bike Breeze', font='5', width=23, height=3, fg='white', background='brown3')
+        label_ = tk.Label(mainframe, text='Bike Breeze', font='5',
+                          width=23, height=3, fg='white', background='brown3')
         label_.place(x=0)
         # if(dir_):
         #  for_profile = Image.open(dir_)
@@ -683,7 +815,9 @@ def navs():
 # Fot services
         services = tk.Label(mainframe, text='Services', bg='orange2',
                             fg='white', font=f, width=23, highlightthickness=0, cursor='hand2')
+        services.bind('<Button-1>', go_to_theservicespage)
         services.place(x=0, y=340)
+        
         for_services = Image.open('services.png')
         servh = 18
         servw = 18
@@ -869,22 +1003,14 @@ def navs():
 navs()
 
 
-
-
-
 # Information of User
+# canvass
 
 def profies():
+   
     try:
-        global look_uploadsmain, P1_label,iaminprofilifiamin2
+        global look_uploadsmain, P1_label, iaminprofilifiamin2
         iaminprofilifiamin2 = 2
-        def show_my_upload_bike(self):
-            show_all2.config(bg='orange')
-            # show_all.config(bg='lightgray')
-            canvas_toshowthetrasation.place_forget()
-            show_all3.config(bg='lightgray')
-            l.config(background='lightgray')
-            frame_for_upload.place(x=33, y=294)
 
         def show_send_money(self):
             show_all2.config(bg='lightgray')
@@ -900,53 +1026,40 @@ def profies():
             canvas_toshowthetrasation.place_forget()
             frame_for_upload.place_forget()
 
-
         def goand_bring_the_bike_details():
-        #          up_date = Label(frame_for_upload, text='date',bg='orange')
-        # up_date.place(x=23, y=23)
-        # name_bike= Label(frame_for_upload,text='Hello', bg='red')
-        # name_bike.place(x=12, y=43)
-        # name_model= Label(frame_for_upload, text='Model',bg='orange')
-        # name_model.place(x=23, y=83)
-        # phone_number= Label(frame_for_upload, text='890797987', bg='orange')
-        # phone_number.place(x=23, y=122)
-        # conditon__ofbike = Label(frame_for_upload, text='Condition', bg='orange')
-        # conditon__ofbike.place(x=12, y=133)
-        # price_of_bike = Label(frame_for_upload,text='23234')
-        # price_of_bike.place(x=23,y=144)
-        # available_or_not = tk.Button(frame_for_upload, text='Available', bg='#f15d43')
-        # available_or_not.place(x=0, y=166)
-         try:
-           sql = 'SELECT * FROM userbikes WHERE userid=%s'
-           value = (user_id_from_back,)
-           cur_sor.execute(sql,value)
-           datas = cur_sor.fetchone()
-           if(len(datas)<1):
-               return
-           print(datas, 'THSITHISTHISHTSITHSITHSI IS YOUR DATAS')
-           up_date.config(text=f'{datas[12]}')
-           name_bike.insert(0, datas[1])
-           phone_number.insert(0, datas[4])
+            try:
+                sql = 'SELECT * FROM userbikes WHERE userid=%s'
+                value = (user_id_from_back,)
+                cur_sor.execute(sql, value)
+                datas = cur_sor.fetchone()
+                if (len(datas) < 1):
+                    return
+                print(datas, 'THSITHISTHISHTSITHSITHSI IS YOUR DATAS')
+                up_date.config(text=f'{datas[12]}')
+                name_bike.insert(0, datas[1])
+                phone_number.insert(0, datas[4])
         #    name_model.insert(0, data_s[])
-           price_of_bike.insert(0, datas[6])
-           conditon__ofbike.insert(0, datas[7])
-           available_or_not.config(text=f' available:{datas[9]}')
-           ww = 400
-           hh= 310
-           biiimage = Image.open(f'uploadedbike/{datas[10]}')
-           upbikeimagee = biiimage.resize((ww, hh), Image.LANCZOS)
-           biii = ImageTk.PhotoImage(upbikeimagee)
-           label_bike.config(image=biii)
-           label_bike.image = biii
+                price_of_bike.insert(0, datas[6])
+                conditon__ofbike.insert(0, datas[7])
+                available_or_not.config(text=f' available:{datas[9]}')
+                ww = 400
+                hh = 310
+                biiimage = Image.open(f'uploadedbike/{datas[10]}')
+                upbikeimagee = biiimage.resize((ww, hh), Image.LANCZOS)
+                biii = ImageTk.PhotoImage(upbikeimagee)
+                label_bike.config(image=biii)
+                label_bike.image = biii
         #    label_delete.place(x=600)
         #    conditon__ofbike.insert(0, datas[])
 
+                name_bike.config(text='')
+            except Exception as e:
+                print(e)
 
-           name_bike.config(text='')
-         except Exception as e:
-             print(e)
-   
-
+        def changethebikeupload_detals():
+            pass
+       
+        # track_canvas = 1
         look_uploadsmain = tk.Frame(root, height=645, width=1234, bg='white')
         look_uploadsmain.place(x=254, y=109)
         # l1 = tk.Label(look_uploadsmain, text="Profile")
@@ -984,6 +1097,8 @@ def profies():
                             image=P1Image, cursor='hand2')
         P1_label.image = P1Image
         P1_label.place(x=5, y=24)
+
+
         look_money = tk.Frame(look_uploadsmain, height=204,
                               width=554, bg='snow', borderwidth=1, relief=tk.RAISED)
         look_money.place(x=603, y=23)
@@ -1003,18 +1118,34 @@ def profies():
         l = tk.Label(show_all)
         l.place(x=23)
         # ////////////////////////////////////////
-        
-                # ////////////////////////////////////////
+
+        # ////////////////////////////////////////
         # show all 2 start
         # ////////////////////////////////////////
         # ////////////////////////////////////////
+        def show_my_upload_bike(self):
+            show_all2.config(bg='orange')
+            # show_all.config(bg='lightgray')
+            canvas_toshowthetrasation.place_forget()
+            show_all3.config(bg='lightgray')
+            l.config(background='lightgray')
+            frame_for_upload.place(x=33, y=294)
+            goand_bring_the_bike_details()
+
+
+
+
+
+
+
+
+
         show_all2 = tk.Frame(show_all, height=64, width=502, cursor='hand2',
                              bg="lightgray", borderwidth=1, relief=tk.RAISED)
         show_all2.place(x=320)
         show_all2.bind('<Button-1>', show_my_upload_bike)
 
-        show_all1buttom2 = tk.Frame(show_all2, width=502, height=5,  background='black',
-                                    cursor='hand2', bg="lightgray", borderwidth=1, relief=tk.RAISED)
+        show_all1buttom2 = tk.Frame(show_all2, width=502, height=5 , cursor='hand2', bg="lightgray", borderwidth=1, relief=tk.RAISED)
         show_all1buttom2.place(x=0, y=60)
 
 # /////////////////////////////////////////////
@@ -1022,25 +1153,28 @@ def profies():
 # For showing the upload bikes of the user
 # /////////////////////////////////////////////
 # /////////////////////////////////////////////
-        
+
         frame_for_upload = tk.Frame(
             look_uploadsmain, height=333, width=1133, bg="lightgray", borderwidth=1, relief=tk.RAISED)
         frame_for_upload.place_forget()
-        up_date = Label(frame_for_upload, text='date',bg='orange')
+        up_date = Label(frame_for_upload, text='date', bg='orange')
         up_date.place(x=23, y=23)
-        name_bike= Entry(frame_for_upload,text='Hello', bg='red')
+        name_bike = Entry(frame_for_upload, text='Hello', bg='red')
         name_bike.place(x=12, y=43)
-        name_model= Entry(frame_for_upload, text='Model',bg='orange')
+        name_model = Entry(frame_for_upload, text='Model', bg='orange')
         name_model.place(x=23, y=83)
-        phone_number= Entry(frame_for_upload, text='890797987', bg='orange')
+        phone_number = Entry(frame_for_upload, text='890797987', bg='orange')
         phone_number.place(x=23, y=122)
-        conditon__ofbike = Entry(frame_for_upload, text='Condition', bg='orange')
+        conditon__ofbike = Entry(
+            frame_for_upload, text='Condition', bg='orange')
         conditon__ofbike.place(x=12, y=133)
-        price_of_bike = Entry(frame_for_upload,text='23234')
-        price_of_bike.place(x=23,y=144)
-        available_or_not = tk.Button(frame_for_upload, text='Available', bg='#f15d43')
+        price_of_bike = Entry(frame_for_upload, text='23234')
+        price_of_bike.place(x=23, y=144)
+        available_or_not = tk.Button(
+            frame_for_upload, text='Available', bg='#f15d43')
         available_or_not.place(x=0, y=166)
-        makechange = tk.Button(frame_for_upload, text='save change', bg='#f15d43')
+        makechange = tk.Button(
+            frame_for_upload, text='save change', bg='#f15d43')
         makechange.place(x=0, y=226)
         deleteimage = Image.open('delete.png')
         h = 20
@@ -1064,8 +1198,6 @@ def profies():
         label_bike.place(x=600)
 
         goand_bring_the_bike_details()
-
-
 
         # ////////////////////////////////////////
         # ////////////////////////////////////////
@@ -1106,6 +1238,7 @@ def profies():
         def on_mousewheel(event):
             canvas_toshowthetrasation.yview_scroll(
                 int(-1*(event.delta/120)), "units")
+            
         canvas_toshowthetrasation = tk.Canvas(
             look_uploadsmain, width=1400, height=500,  borderwidth=0, highlightthickness=0)
         canvas_toshowthetrasation.place(x=103, y=324)
@@ -1113,7 +1246,6 @@ def profies():
             root, orient=tk.VERTICAL, command=canvas_toshowthetrasation.yview)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         canvas_toshowthetrasation.configure(yscrollcommand=scrollbar.set)
-
         # Configure the canvas to scroll with the mouse wheel
         canvas_toshowthetrasation.bind_all("<MouseWheel>", on_mousewheel)
 
@@ -1162,7 +1294,13 @@ def profies():
             (0, 0), window=show_all_sendamount, anchor=tk.NW)
     except Exception as e:
         print(e)
+# ///////////////////////////////////////////////////////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////
+# scroll End
 
+# ///////////////////////////////////////////////////////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////
+# Add content to the canvas
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         # Transition 1 End
@@ -1222,18 +1360,6 @@ check()
 # If user upload the profilepicture END
 # /////////////////////////////////////
 # /////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 root.mainloop()
