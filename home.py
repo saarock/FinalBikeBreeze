@@ -103,6 +103,11 @@ def go_for_bikes():
        #  mainframe.pack()
         Home_FRAME.place_forget()
         mainframe.pack(side='left', fill='y')
+        # canvasss.pack()
+        # if(canvasss):
+        #     return
+        # go_to_theservicespage()
+
         if (iaminprofilifiamin2 == 2):
             return
         # bike_upload_frame.place(x=233, y=104)
@@ -127,14 +132,23 @@ def go_for_bikes():
 
 def go_home(event):
     try:
-        global track_home, for_l_sm_fon
+        global track_home, for_l_sm_fon, track_canvas,Home_FRAME
         if (track_home != 1):
             return
-        global Home_FRAME
+    
         print('Done')
         mainframe.pack_forget()
+     
         bike_upload_frame.place_forget()
-        # canvasss.destroy()
+    
+        # if canvasss.winfo_manager() != '':
+        #  canvasss.pack_forget()
+        if(track_canvas ==2):
+         track_canvas = 1
+         canvasss.pack_forget()
+
+  
+         
 
 
        #    amainframe.forget()
@@ -168,20 +182,13 @@ def go_home(event):
                        font=for_l_sm_fon, bg='#f15d43', command=go_for_bikes)
         b1.place(x=233, y=199)
         track_home += 1
-    except EXCEPTION as e:
-        messagebox.showerror('error', 'SomeThing wrong please try again', e)
+       
+    except Exception as e:
+        print(e)
+        print(canvasss)
+        messagebox.showerror('error', f'SomeThing wrong please try again{e}')
 
-       #    for_profile = Image.open('a.jpg')
-       #    profile_height = 680
-       #    profile_width = 1515
-       #    resize_profile = for_profile.resize((profile_width, profile_height), Image.LANCZOS)
-       #    profileImage = ImageTk.PhotoImage(resize_profile)
-       #    profile_label = tk.Label(Home_FRAME,text='profile', image=profileImage, cursor='hand2', bg='orange', fg='red')
-       #    profile_label.image = profileImage
-       #    profile_label.place(x=7,y=4)
 
-       #    label= tk.Label(Home_FRAME, text='My anme')
-       #    label.place(x=12)
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -230,8 +237,6 @@ def bike_uploaded_click(event):
     profile.config(bg='orange2')
     bike_upload_frame.place(x=233, y=104)
     print('Done')
-    # messagebox.showerror('e')
-    # Forget the services page
     canvasss.pack_forget()
     track_canvas = 1
 
@@ -572,16 +577,305 @@ bike_upload()
 # Set the overall theme
 style.theme_use("clam")
 
+id_of_the_bike_which_is_uniqe = None
+def add_to_card(n):
+ global id_of_the_bike_which_is_uniqe
+ try:
+    def remove_transition_frame():
+        frameforthepayment.pack_forget()
 
+
+
+
+
+    id_of_the_bike_which_is_uniqe= n
+    # import payment
+    my_userid = ''
+    frameforthepayment = Frame(canvasss, height=1000,width=2000,bg='black')
+    frameforthepayment.pack()
+    mainframe = Frame(frameforthepayment, height=2222,width=2205, background='orange1')
+    mainframe.pack()
+    ii_cut = Image.open('cut.png')
+    hh_cut =23
+    ww_cut = 22
+    a_aa = ii_cut.resize((ww_cut, hh_cut), Image.LANCZOS)
+    cut_img= ImageTk.PhotoImage(a_aa)
+    label_for_cut = Button(mainframe,image=cut_img,command=remove_transition_frame)
+    label_for_cut.image =cut_img
+    label_for_cut.place(x=1233, y=12)
+
+    frame=Frame(mainframe,width=350,height=350,bg='#fff')
+    frame.place(x=500,y=90)
+    heading=Label(frame,text="Banking",fg='red',bg='white',font=('Gabriola','25','bold'),bd=0)
+    heading.place(x=130,y=0)
+
+
+    passw = ''
+    fBikeid = 1
+    fownerid = 1
+    fPrice = 1
+    fPassword = 1
+    fmessage = 1
+
+    def openlogin():
+        root.destroy()
+        import login
+
+
+
+    def send_money():
+        print('Ok i am running')
+        bike_id = Bikeid.get()
+        price_ = Price.get()
+        owner_id= ownerid.get()
+        mess_age = message.get()
+        pss_word =Password.get()
+        if(not price_.isdigit()):
+            messagebox.showerror('error', 'Pleased provide valid informations.')
+            return
+        send_price = int(price_)
+    # current_money = int(usermoney)
+
+
+# This is because a user can't send the money to himself
+        if( owner_id == my_userid):
+            pass
+# Check the userinput  is valid integer or not
+    # if(price_.isdigit() and pss_word == userpas):
+    #     print('Print both Condition matched')
+
+
+
+
+# Check the bike available or not
+        print('OK I AM STILL RUNNING')
+        query = "SELECT * FROM uploadedbikes WHERE userid = %s AND id = %s"
+        print(1)
+        try:
+           print(owner_id,'THIS IS VALID OR NOT')
+           cur_sor.execute(query, (owner_id, bike_id))
+           print(2)
+           ownerbike = cur_sor.fetchall()
+           print(ownerbike)
+           print(ownerbike,'This is the owner bike')
+           if(not int(ownerbike[0][9])== send_price ):
+
+             messagebox.showerror('error','Pleased look at the money!')
+             return
+           else:
+               print('Welldone')
+               
+
+           
+           if(ownerbike[0][8] == 'NO'):
+               messagebox.showerror('alert','Bike is not available for now')
+               return
+        except Exception as e:
+              print(e, 'THisis the error')
+
+        # Check the user have sufficient balance or not
+        if(send_price<= 23):
+         cur_sor.execute("SHOW TABLES LIKE 'banking'")  
+         exist=cur_sor.fetchone()
+         print(exist, 'THISTHISHTISHTISSHTI')
+         if(exist):
+             print('yes tabel is exist')
+             pass
+         else:
+          print('Tabel is not exist')
+          query = "SELECT money FROM usersmoney WHERE userid = %s"
+          print(owner_id, 'THIS IS ALSO CHEKC')
+          cur_sor.execute(query, (owner_id,))
+          ownermoney = cur_sor.fetchone()
+          print(ownermoney,'THIS IS OWNER MONEY')
+          if(not ownermoney):
+              print('User is not exist')
+              messagebox.showerror('error', 'Pleased input valid information.')
+              return
+          print(my_userid,'THIS IS WHAT CHECK THE FIRST')
+          cur_sor.execute(query,(my_userid[0],))
+          sendermoney = cur_sor.fetchone()
+          print(sendermoney,'THIS IS THE SENDER MONEY') 
+          omoney = int(ownermoney[0])
+          smoney = int(sendermoney[0])
+          print(omoney, 'HELLO WORLD')
+        #   query = "SELECT * FROM uploadedbikes WHERE userid = %s AND id = %s"
+        #   cur_sor.execute(query, (owner_id,bike_id))
+        #   ownerbike = cur_sor.fetchall()
+        #   print(ownerbike,'This is the owner bike')
+          
+        #   Update usermoney or let's  manage the consistencey
+          update_query = "UPDATE usersmoney SET money = %s WHERE userid = %s"
+          new_money_fo_the_owner  = omoney+send_price
+          print(new_money_fo_the_owner,owner_id, 'CHECK111')
+          cur_sor.execute(update_query, (new_money_fo_the_owner, owner_id))
+          mydb.commit()
+        #   update sender money
+          update_sender_money = "UPDATE usersmoney SET money = %s WHERE userid = %s"
+          new_money_fo_the_sender  = smoney-send_price
+          print(new_money_fo_the_sender, my_userid)
+
+          cur_sor.execute(update_sender_money, (new_money_fo_the_sender, my_userid[0]))
+          mydb.commit()
+
+        #   Let'supdate the bike available if the user book the bike
+         query_foravai = "UPDATE uploadedbikes SET available = %s WHERE userid= %s"
+         avai ='NO'
+         cur_sor.execute(query_foravai,(avai, owner_id))
+         mydb.commit()
+         messagebox.showerror('sucess', 'sendSucessfull')
+         root.destroy()
+
+
+
+
+
+
+
+
+# """
+        else:
+            print('No the money amoutnt in not big')
+            print(type(56), type(price_))
+# Lets depickel the foreginkey
+
+
+
+    def enter(event):
+     try:
+        global fBikeid
+        if (fBikeid == 1):
+            if(Bikeid.get() == "BikeId"):
+                Bikeid.delete(0,END)
+                return
+            fBikeid = 2
+     except Exception as e:
+         print(e)
+
+    def leave(event):
+        if Bikeid.get()=='':
+            Bikeid.insert(0,"BikeId")
+    Bikeid=Entry(frame,width=20,bd=5, font= ("Arial",10,"bold"))
+    Bikeid.place(x=15,y=80)
+    Bikeid.insert(0,"BikeId")
+    Bikeid.bind('<FocusIn>',enter)
+    Bikeid.bind('<FocusOut>',leave)
+
+
+    def enter(event):
+        global fPrice
+        if (fPrice == 1):
+            if(Price.get() == "Price"):
+                Price.delete(0,END)
+                return
+            fPrice = 2
+    def leave(event):
+        if Price.get()=='':
+            Price.insert(0,"Price")
+    Price=Entry(frame,width=30,bd=5, font= ("Arial",10,"bold"))
+    Price.place(x=60,y=125)
+    Price.insert(1,"Price")
+    Price.bind('<FocusIn>',enter)
+# Price.bind('<key>',enter)
+    Price.bind('<FocusOut>',leave)
+
+    def enter(event):
+        global fPassword
+        if (fPassword == 1):
+            if(Password.get() == "Password"):
+                Password.delete(0,END)
+                return
+            fPassword = 2
+
+    def leave(event):
+        if Password.get()=='':
+            Password.insert(0,f"Password{id_of_the_bike_which_is_uniqe}")    
+    Password=Entry(frame,width=30,bd=5, font= ("Arial",10,"bold"))
+    Password.place(x=60,y=170)
+    Password.insert(2,"Password")
+    Password.bind("<FocusIn>",enter)
+    Password.bind('<FocusOut>',leave)
+
+    def enter(event): 
+        global fownerid
+        if (fownerid == 1):
+            if(ownerid.get() == "Ownerid"):
+                ownerid.delete(0,END)
+                return
+            fownerid = 2
+
+    def leave(event):
+        if ownerid.get()=='':
+            ownerid.insert(0,"Ownerid")
+    ownerid=Entry(frame,width=20,bd=5, font= ("Arial",10,"bold"))
+    ownerid.place(x=190,y=80)
+    ownerid.insert(0,"Ownerid")
+    ownerid.bind('<FocusIn>',enter)
+    ownerid.bind('<FocusOut>',leave)
+
+
+
+    def enter(event):
+    # p = Password.get()
+    # print(p)
+        global fmessage
+        if (fmessage == 1):
+            if(message.get() == "Message"):
+                message.delete(0,END)
+                return
+            fmessage = 2
+
+    def leave(event):
+        if message.get()=='':
+            message.insert(0,"Message")
+    message=Entry(frame,width=30,bd=5, font= ("Arial",10,"bold"))
+    message.place(x=60,y=210)
+    message.insert(3,"Message")
+    message.bind("<FocusIn>",enter)
+    message.bind('<FocusOut>',leave) 
+
+
+    signup_btn=Button(frame,text="Send",fg='white', bg='blue',width=15,font=('Roboto','12','bold'),command=send_money)
+    signup_btn.place(x=90,y=260)
+# label=Label(frame,text="I have an account",fg='black',bg='white',font=('Roboto',9))
+# label.place(x=85,y=300)
+
+# signin=Button(frame,width=6,text='Sign in',fg='blue',bg='white', bd=0, command= openlogin)
+# signin.place(x=190,y=300)
+
+
+# For image of money
+# Load the image
+    
+    def images():
+        img_moneyyy = Image.open('m.png')
+        print(img_moneyyy)
+        height_of_money = 203
+        width_of_money = 304
+        my_money  =img_moneyyy.resize((width_of_money, height_of_money))
+        imgggg =ImageTk.PhotoImage(my_money)
+        print(imgggg)
+        label_image_of_the_money = Label(mainframe, image=imgggg, bg='skyblue')
+        label_image_of_the_money.image = imgggg
+        label_image_of_the_money.place(x=150,y=133)
+
+
+    images()
+ except Exception as e:
+    print(e)
 
 track_canvas = 1
 def go_to_theservicespage(event):
+#  messagebox.showinfo('a', track_canvas)
  global iaminprofilifiamin2
  global  canvasss,track_canvas
+
+
+
+
  if(track_canvas == 2):
      return
  try:
-   
     iaminprofilifiamin2 = 1
     look_uploadsmain.place_forget()
     bike.config(bg='orange')
@@ -599,17 +893,23 @@ def go_to_theservicespage(event):
     # ////////////////////////////////////
     # ////////////////////////////////////
 
-      sql = 'SELECT * FROM userbikes' 
-      cur_sor.execute(sql)
-      datas = cur_sor.fetchall()
-      print(datas,'HELLO IDICHCHHA GAUTAM ')
-
+    sql = 'SELECT * FROM userbikes' 
+    cur_sor.execute(sql)
+    _data____s = cur_sor.fetchall()
+    print(_data____s,'HELLO IDICHCHHA GAUTAM ')
+    if(len(_data____s)<1):
+      messagebox.showinfo('info', 'No Bikes found')
+      return
+        
+      
+# main_frame
 
         # ////////////////////////////////////
     # ////////////////////////////////////
     # getting allthe data from the database End
     # ////////////////////////////////////
     # ////////////////////////////////////
+
    
 # Create a scrollable frame
     canvasss = tk.Canvas(root, width=1100, height=1100, borderwidth=0, highlightthickness=0,)
@@ -623,52 +923,52 @@ def go_to_theservicespage(event):
     canvasss.configure(yscrollcommand=scrollbar.set)
 
 # Add content to the canvas
-    canvas_frame = tk.Frame(canvasss,bg='black',height=1242, width=2222, background='white')
+    canvas_frame = tk.Frame(canvasss,bg='black',height=1242, width=2222, background='gray')
     canvas_frame.place(x=222)
     canvasss.create_window((0, 0), window=canvas_frame, anchor=tk.NW)
-
-
-    for i in range(50):
-      item_frame = tk.Frame(canvas_frame, width=610, height=430, bg="lightgray", borderwidth=1, relief=tk.RAISED,padx=12, pady=12)
-      item_frame.grid(row=i, column=0,padx=12,pady=12)
-      up_date__ = Label(item_frame, text='date', bg='orange')
-      up_date__.place(x=23, y=23)
-      name_bike__ = Entry(item_frame, text='Hello', bg='red')
-      name_bike__.place(x=12, y=43)
-      name_model__ = Entry(item_frame, text='Model', bg='orange')
-      name_model__.place(x=23, y=83)
-      phone_number__ = Entry(item_frame, text='890797987', bg='orange')
-      phone_number__.place(x=23, y=122)
-      conditon__ofbike__ = Entry(
-      item_frame, text='Condition', bg='orange')
-      conditon__ofbike__.place(x=12, y=133)
-      price_of_bike__ = Entry(item_frame, text='23234')
-      price_of_bike__.place(x=23, y=144)
-      available_or_not__ = tk.Button(
-      item_frame, text='Add to card', bg='#f15d43')
-      available_or_not__.place(x=0, y=166)
-    #   makechange__ = tk.Button(
-    #   item_frame, text='save change', bg='#f15d43')
-    #   makechange__.place(x=0, y=226)
-
-      item_frame__ = tk.Frame(canvas_frame, width=610, height=430, bg="lightgray", borderwidth=1, relief=tk.RAISED, padx=12, pady=12)
-      item_frame__.grid(row=i,column=1,padx=12,pady=12)
-      up_date___ = Label(item_frame__, text='date', bg='orange')
-      up_date___.place(x=23, y=23)
-      name_bike___ = Entry(item_frame__, text='Hello', bg='red')
-      name_bike___.place(x=12, y=43)
-      name_model___ = Entry(item_frame__, text='Model', bg='orange')
-      name_model___.place(x=23, y=83)
-      phone_number___ = Entry(item_frame__, text='890797987', bg='orange')
-      phone_number___.place(x=23, y=122)
-      conditon__ofbike___ = Entry(
-      item_frame__, text='Condition', bg='orange')
-      conditon__ofbike___.place(x=12, y=133)
-      price_of_bike___ = Entry(item_frame__, text='23234')
-      price_of_bike___.place(x=23, y=144)
-      available_or_not___ = tk.Button(
-      item_frame__, text='Add to card', bg='#f15d43')
-      available_or_not___.place(x=0, y=166)
+    
+    
+  
+    k = 0
+    r = 0 
+    for i in range(0, len(_data____s)):
+    #   for _ in range(repetitions): 
+       if(k>1):
+          k=0
+          r+=1
+       item_frame__ = tk.Frame(canvas_frame, width=610, height=430, borderwidth=1, relief=tk.RAISED, padx=12, pady=12)
+       item_frame__.grid(row=r,column=k,padx=12,pady=12)
+       custom_font = font.Font(family="Helvetica", size=16, weight="bold", underline=True)
+       custom_font = font.Font(family="Helvetica", size=12)
+       up_date___ = Label(item_frame__, text=f'uploaddate: {_data____s[i][12]}', font=custom_font,fg="#666666", bg="#FFFFFF")
+       up_date___.place(x=0, y=23)
+       name_bike___ = Label(item_frame__, text=f'BikeName: {_data____s[i][1]}',font=custom_font)
+       name_bike___.place(x=23, y=55)
+       name_model___ = Label(item_frame__, text=f'Model:{" 1234RHS"}', font=custom_font)
+       name_model___.place(x=23, y=85)
+       phone_number___ = Label(item_frame__, text='890797987', font=custom_font)
+       phone_number___.place(x=23, y=122)
+       conditon__ofbike___ = Label(
+       item_frame__, text='Condition', font=custom_font)
+       conditon__ofbike___.place(x=23, y=153)
+       price_of_bike___ = Label(item_frame__, text='23234',font=custom_font)
+       price_of_bike___.place(x=23, y=184)
+       bike_id = _data____s[i][0]
+       available_or_not___ = tk.Button(
+       item_frame__, text='Add to card',font=custom_font,bg='pink', command=lambda bike_id =bike_id :add_to_card(bike_id))
+       available_or_not___.place(x=23, y=266)
+       i_img = Image.open(f'uploadedbike/{_data____s[0][10]}')
+       hhh = 300
+       www = 400
+       img = i_img.resize((www,hhh))
+       i = ImageTk.PhotoImage(img)
+       lab_image11 = Label(item_frame__, image=i)
+       lab_image11.image = i
+       lab_image11.place(x=180)
+       k+=1
+       show_allthe_label_info = Label(item_frame__, font=custom_font ,  text='shalsdmgasdngasdngasdgasdgbasjdkgbsasdnsajdbgasdgbasjdgbvasgvasdg\nasdsakdbgjsadgvsajdg')
+       
+       show_allthe_label_info.place(x=23,y=350)
     #   makechange___ = tk.Button(
     #   item_frame__, text='save change', bg='#f15d43')
     #   makechange___.place(x=0, y=226)
