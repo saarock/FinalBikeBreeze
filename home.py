@@ -101,6 +101,7 @@ check_user_is_login_or_not()
 
 track_home = 1
 iaminprofilifiamin2 = 1
+trac_big_frame_for_search = 1
 
 
 
@@ -121,13 +122,21 @@ def go_for_bikes():
         # if(canvasss):
         #     return
         # go_to_theservicespage()
+        # go_to_theservicespage()
+        # canvasss.pack()
+
+        # mainframe.pack_forget()
+        look_uploadsmain.place_forget()
+
+        bike_upload_frame.place(x=233, y=104)
 
         if (iaminprofilifiamin2 == 2):
             return
     
 
 
-        bike_upload_frame.place(x=233, y=104)
+        # bike_upload_frame.place(x=233, y=104)
+  
         
 
 
@@ -151,12 +160,17 @@ def go_for_bikes():
 
 def go_home(event):
     try:
-        global track_home, for_l_sm_fon, track_canvas, Home_FRAME
+        global track_home, for_l_sm_fon, track_canvas, Home_FRAME, trac_big_frame_for_search
         if (track_home != 1):
             return
 
         print('Done')
         mainframe.pack_forget()
+      
+        if(trac_big_frame_for_search== 2):
+          canvas_____.pack_forget()
+          trac_big_frame_for_search = 1
+
 
         bike_upload_frame.place_forget()
 
@@ -170,7 +184,7 @@ def go_home(event):
        #    look_uploadsmain.forget()
         ft = font.Font(family="Montserrat", size=40,
                        weight="bold", slant="italic")
-        Home_FRAME = tk.Frame(root, height=680, width=1510, bg='black')
+        Home_FRAME = tk.Frame(root, height=1080, width=1510, bg='black')
         Home_FRAME.place(x=5, y=70)
         label_big = tk.Label(
             Home_FRAME, text='OLD BIIKES VS STEETSBIKE', bg='black', fg='white', font=ft)
@@ -193,10 +207,14 @@ def go_home(event):
         profile_label.image = profileImage
         profile_label.place(x=787, y=5)
         # Buttons
-        b1 = tk.Button(Home_FRAME, text='Go',
+        b1 = tk.Button(Home_FRAME, text='Go for upload bike.',
                        font=for_l_sm_fon, bg='#f15d43', command=go_for_bikes)
         b1.place(x=233, y=199)
         track_home += 1
+
+        _home_nav = Frame(Home_FRAME, bg='white', height=100,width=1510)
+        _home_nav.place(x=0,y=500)
+        butons =Button(_home_nav,text='Gohome')
 
     except Exception as e:
         print(e)
@@ -415,7 +433,7 @@ def bike_upload():
         INSERT INTO userbikes (bikename, userid, username  ,phonenumber,  location,price ,bikecondition,days, available , bikeimage  ,email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s)
         '''
                             print(2)
-                            values = (b_n, user_id, username, phn_number, locations,
+                            values = (b_n, user_id, username, phn_number, locations.lower(),
                                       price__, conditon__, ava_day, available, bike__image, email)
                             print(3)
                             print(values)
@@ -457,7 +475,7 @@ def bike_upload():
         INSERT INTO userbikes (bikename, userid, username  ,phonenumber,  location,price ,bikecondition,days, available , bikeimage  ,email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s)
         '''
                                 print(4)
-                                values = (b_n, user_id, username, phn_number, locations,
+                                values = (b_n, user_id, username, phn_number, locations.lower(),
                                           price__, conditon__, ava_day, available, bike__image, email)
                                 cur_sor.execute(insert_datas, values)
                                 mydb.commit()
@@ -1085,8 +1103,8 @@ def navs():
         global mainframe, amainframe, bike, profile
         mainframe = tk.Frame(root, bg='orange2', width=223)
         mainframe.pack(side='left', fill='y')
-        amainframe = tk.Frame(root, bg='snow', width=503, height=63)
-        amainframe.pack(fill='x')
+        amainframe = tk.Frame(root, bg='white', width=10003, height=63, )
+        amainframe.place(x=230)
         label_ = tk.Label(mainframe, text='Bike Breeze', font='5',
                           width=23, height=3, fg='white', background='brown3')
         label_.place(x=0)
@@ -1111,7 +1129,7 @@ def navs():
 # for support
         gmail = tk.Label(amainframe, text="for support mail us at\nbikebreeze1025@gmail.com",
                          bg="snow", fg="black", font=f, highlightthickness=0, cursor='hand2')
-        gmail.place(x=670, y=5)
+        gmail.place(x=1000, y=5)
         for_gmail = Image.open('m.png')
         gmail_height = 30
         gmail_width = 30
@@ -1121,7 +1139,7 @@ def navs():
         gmail_label = tk.Label(amainframe, text="gmail",
                                image=gmailImage, cursor='hand2')
         gmail_label.image = gmailImage
-        gmail_label.place(x=630, y=15)
+        gmail_label.place(x=800, y=15)
 # for instagram
         for_insta = Image.open('i.png')
         insta_height = 30
@@ -1132,7 +1150,7 @@ def navs():
         insta_label = tk.Label(amainframe, text="insta",
                                image=instaImage, cursor='hand2')
         insta_label.image = instaImage
-        insta_label.place(x=940, y=15)
+        insta_label.place(x=840, y=15)
 # for google
         for_google = Image.open('t.png')
         google_height = 30
@@ -1143,7 +1161,7 @@ def navs():
         google_label = tk.Label(amainframe, text="google",
                                 image=googleImage, cursor='hand2')
         google_label.image = googleImage
-        google_label.place(x=989, y=15)
+        google_label.place(x=879, y=15)
 # for facebook
         for_facebook = Image.open('fb.png')
         facebook_height = 30
@@ -1154,25 +1172,140 @@ def navs():
         facebook_label = tk.Label(
             amainframe, text="facebook", image=facebookImage, cursor='hand2')
         facebook_label.image = facebookImage
-        facebook_label.place(x=1030, y=15)
-# for twitter
-        # for_twitter = Image.open('t.png')
-        # twitter_height = 30
-        # twitter_width =30
-        # resize_twitter = for_twitter.resize((twitter_width, twitter_height), Image.LANCZOS)
-        # twitterImage = ImageTk.PhotoImage(resize_twitter)
-        # twitter_label = tk.Label(amainframe, text="twitter", image=twitterImage, cursor='hand2')
-        # twitter_label.image = twitterImage
-        # twitter_label.place(x=20,y=15)
+        facebook_label.place(x=940, y=15)
+
 
 # for search
-        search1 = Text(amainframe, width=55, height=2,
-                       relief='sunken', fg='black')
-        search1.place(x=170, y=15)
-        search1.insert(tk.END, 'SEARCH...')
-        home1 = tk.Label(amainframe, text="Home", bg="snow", fg='black',
-                         font=f, width=14, highlightthickness=0, cursor='hand2')
-        home1.place(x=2, y=15)
+# If user enter the search input
+        track_searchinput = 1
+        def enter(event):
+         try:
+            nonlocal track_searchinput
+            # global track_searchinput
+            txt = search1.get('1.0', END)
+            if txt.strip() == 'Search...' and track_searchinput==1:
+                  search1.delete('1.0','end')
+                  track_searchinput=2
+         except Exception as e:
+             print(e)
+
+        def leave(event):
+         try:
+            nonlocal track_searchinput
+            txt = search1.get('1.0', END)
+            if( txt.strip() == '' and track_searchinput == 2):
+              search1.insert(tk.END, 'Search...')
+              track_searchinput = 1
+         except Exception as e:
+             print(e)
+
+
+        # //////////////////////////////////////////////
+        # //////////////////////////////////////////////
+        # Deside what to after user search for bike by the location  START
+        # //////////////////////////////////////////////
+        # //////////////////////////////////////////////
+   
+
+        def cut():
+         try:
+            global trac_big_frame_for_search
+            # messagebox.showinfo('a','a')
+            canvas_____.pack_forget()
+            big_frame_for_searchbikes.place_forget()
+            trac_big_frame_for_search= 1
+         except Exception as e:
+             print(e)
+            
+    
+
+        def search():
+         try:
+            global big_frame_for_searchbikes, canvas_____, trac_big_frame_for_search
+            if(trac_big_frame_for_search == 2):
+                return
+            txt = search1.get('1.0', END)
+            # messagebox.showerror('a', txt.strip())
+            if(txt.strip() == '' or txt.strip() == 'Search...'):
+                messagebox.showinfo('info','Pleased search with location.')
+                return
+            # sql = 'SELECT * FROM userbikes WHERE location = %s'
+            sql = "SELECT * FROM userbikes WHERE location LIKE '{}%'".format(txt.strip())
+            value = (txt.strip(),)
+            cur_sor.execute(sql)
+            datas = cur_sor.fetchall()
+            print(datas,'THIS IS THEUSERSEARCH')
+
+            # Canvas 
+
+            canvas_____ = tk.Canvas(root)
+            canvas_____.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        
+
+
+
+
+# Create a Frame inside the Canvas
+
+    
+
+
+            big_frame_for_searchbikes = Frame(canvas_____, height=1000, width=1160, background='orange')
+            big_frame_for_searchbikes.place(x=20, y=10)
+            cut_img = Image.open('cut.png')
+            h_s = 34
+            w_s = 40
+            # Add widgets to the Frame
+
+
+            i_c = cut_img.resize((w_s, h_s), Image.LANCZOS)
+            img_for_cut_button = ImageTk.PhotoImage(i_c)
+            label_for_cut_button = tk.Button(big_frame_for_searchbikes, text='cut' ,bg='gray' ,image=img_for_cut_button, command=cut)
+            label_for_cut_button.image = img_for_cut_button
+            label_for_cut_button.place(x=0, y=0)
+            prevous  = Button(big_frame_for_searchbikes, text='Previous')
+            prevous.place(x=233, y=740)
+            next__  = Button(big_frame_for_searchbikes, text='Next')
+            next__.place(x=383, y=740)
+            trac_big_frame_for_search = 2
+         except Exception as e:
+             print(e)
+            
+
+
+            # messagebox.showinfo('a','show')
+
+            
+
+
+        # //////////////////////////////////////////////
+        # //////////////////////////////////////////////
+        # Deside what to after user search for bike by the location END
+        # //////////////////////////////////////////////
+        # //////////////////////////////////////////////
+            
+            
+        search1 = Text(amainframe, width=55, height=2, fg='black')
+        search1.place(x=370, y=15)
+        search1.insert(tk.END, 'Search...')
+        search1.bind('<Button-1>', enter)
+        search1.bind('Leave', leave)
+
+        # Search butotn
+        img_search =Image.open('images/search.png')
+        h_s = 34
+        w_s = 40
+        i_s = img_search.resize((w_s, h_s), Image.LANCZOS)
+        img_for_seach_button = ImageTk.PhotoImage(i_s)
+        label_for_search_button = tk.Button(amainframe, text='Search' ,bg='gray' ,image=img_for_seach_button, command=search)
+        label_for_search_button.image = img_for_seach_button
+        label_for_search_button.place(x=790, y=15)
+
+
+
+        home1 = tk.Button(amainframe, text="Home", bg="orange", fg='black',
+                         font=f, width=6, highlightthickness=0, cursor='hand2')
+        home1.place(x=159, y=15)
         for_home1 = Image.open('home.png')
         home1_height = 40
         home1_width = 40
@@ -1184,7 +1317,7 @@ def navs():
         home1_label.image = home1Image
         home1.bind('<Button-1>', go_home)
         # home1.bind('<FocusOut>', l)
-        home1_label.place(x=2, y=10)
+        home1_label.place(x=102, y=10)
 
 # Fot services
         services = tk.Label(mainframe, text='Services', bg='orange2',
@@ -1381,7 +1514,7 @@ navs()
 def profies():
 
     try:
-        global look_uploadsmain, P1_label, iaminprofilifiamin2
+        global look_uploadsmain, P1_label, iaminprofilifiamin2, look_uploadsmain
         iaminprofilifiamin2 = 2
 
         def show_send_money(self):
@@ -1477,7 +1610,7 @@ def profies():
         c = font.Font(size=39)
         label = tk.Label(look_money, text='372K', bg='snow', font=c)
         label.place(x=20, y=20)
-
+# 1025
         show_all = tk.Frame(look_uploadsmain, width=1128,
                             height=34, bg='snow',)
         show_all.place(x=23, y=250)
@@ -1653,6 +1786,7 @@ def profies():
         show_all_sendamount7.grid(row=3, column=1, padx=12, pady=12)
 
         print('es')
+        # 1025
 
         canvas_toshowthetrasation.create_window(
             (0, 0), window=show_all_sendamount, anchor=tk.NW)
