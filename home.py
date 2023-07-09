@@ -609,8 +609,9 @@ id_of_the_bike_which_is_uniqe = None
 
 
 # Add to card
-def add_to_card(n, o, i, bbp):
-    global id_of_the_bike_which_is_uniqe
+def add_to_card(n, o, i, bbp, bimage):
+    # messagebox.showinfo('a', bimage)
+    global id_of_the_bike_which_is_uniqe, frameforthepayment
     try:
         def remove_transition_frame():
             frameforthepayment.pack_forget()
@@ -618,11 +619,11 @@ def add_to_card(n, o, i, bbp):
         # import payment
         my_userid = ''
         frameforthepayment = Frame(
-            canvasss, height=1000, width=2000, bg='black')
+           root, height=1000, width=2000, bg='black')
         frameforthepayment.pack()
-        mainframe = Frame(frameforthepayment, height=2222,
+        mainframe = Frame(frameforthepayment, height=1002,
                           width=2205, background='orange1')
-        mainframe.pack()
+        mainframe.pack(side=LEFT, fill=BOTH)
         ii_cut = Image.open('cut.png')
         hh_cut = 23
         ww_cut = 22
@@ -631,7 +632,7 @@ def add_to_card(n, o, i, bbp):
         label_for_cut = Button(mainframe, image=cut_img,
                                command=remove_transition_frame)
         label_for_cut.image = cut_img
-        label_for_cut.place(x=1233, y=12)
+        label_for_cut.place(x=0, y=0)
 
         frame = Frame(mainframe, width=350, height=350, bg='#fff')
         frame.place(x=500, y=90)
@@ -651,8 +652,9 @@ def add_to_card(n, o, i, bbp):
             import login
 
 # Book the bike by sending the money;
-        def send_money():
-            message
+        def send_money(receiver_username):
+            # message
+            # messagebox.showerror('a', )
             print('Ok i am running')
         
             bike_id = Bikeid.get()
@@ -662,13 +664,15 @@ def add_to_card(n, o, i, bbp):
             pss_word = Password.get()
             print('Let;ssee')
             print(bike_id,price_, owner_id, mess_age,pss_word)
-
-            if(mess_age == 'Message'):
-                messagebox.showinfo('info','Pleased send any message')
-                return
             
             if(pss_word ==  'Password'):
                 messagebox.showinfo('info','Pleased Provide Password!')
+                return
+
+
+            
+            if(mess_age == 'Message'):
+                messagebox.showinfo('info','Pleased send any message')
                 return
 
             compare = bcrypt.checkpw(pss_word.encode('utf-8'), data_s[0][5].encode('utf-8'))
@@ -684,115 +688,64 @@ def add_to_card(n, o, i, bbp):
                     'error', 'Pleased provide valid informations.')
                 return
             send_price = int(price_)
-        # current_money = int(usermoney)
+
+            
+# Getting the sender money
+            sql3 = 'SELECT * FROM usermoney WHERE username= %s'
+            value3 = (username_from_back,)
+            cur_sor.execute(sql3, value3)
+            money1 = cur_sor.fetchone()
+            sendermoney= money1[3]
+            print(sendermoney,'SENDERMONEY')
+
+            if(int(sendermoney) <= 0 and int(sendermoney) < int(bbp)):
+                messagebox.showinfo('balance','Not Sufficient balance')
+                return
 
 
-# This is because a user can't send the money to himself
-            if (owner_id == my_userid):
-                pass
-# Check the userinput  is valid integer or not
-        # if(price_.isdigit() and pss_word == userpas):
-        #     print('Print both Condition matched')
+# Getting the receiver money
+            sql2 = 'SELECT * FROM usermoney WHERE username = %s'
+            value2 = (receiver_username,)
+            cur_sor.execute(sql2, value2)
+            money = cur_sor.fetchone()
+            receivermoney = money[3]
+            print(receivermoney,'RECEIVERMONEY')
 
 
-# Check the bike available or not
-            # print('OK I AM STILL RUNNING')
-            # query = "SELECT * FROM uploadedbikes WHERE userid = %s AND id = %s"
-            # print(1)
-            try:
-                # print(owner_id, 'THIS IS VALID OR NOT')
-                # cur_sor.execute(query, (owner_id, bike_id))
-                # print(2)
-                ownerbike = cur_sor.fetchall()
-
-                table_name = "transition"
-                uploaded_date = "transitiondate"
+# If ALL RIGHT THEN EXEUTE THE PROGRAM
+        
+       
+            cur_sor.execute("SHOW TABLES LIKE 'transitions'")
+            yes = cur_sor.fetchone()
+            if(not yes):
+                table_name = "transitions"
+                transitiondate = "transitiondate"
                 tb = f"""
-      CREATE TABLE {table_name} (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        senderid VARCHAR(255),
-        receiverid VARCHAR(255),
-        bikeid VARCHAR(255),
-        price VARCHAR(255),
-        {uploaded_date} DATE NOT NULL DEFAULT (CURRENT_DATE())
-    )
-    """
-                # print(ownerbike)
-                # print(ownerbike, 'This is the owner bike')
-                if (not int(ownerbike[0][9]) == send_price):
-                    messagebox.showerror('error', 'Pleased look at the money!')
-                    return
-                else:
-                    print('Welldone')
-
-                if (ownerbike[0][8] == 'NO'):
-                    messagebox.showerror(
-                        'alert', 'Bike is not available for now')
-                    return
-            except Exception as e:
-                print(e, 'THisis the error')
-
-            # Check the user have sufficient balance or not
-            if (send_price <= 23):
-                cur_sor.execute("SHOW TABLES LIKE 'banking'")
-                exist = cur_sor.fetchone()
-                print(exist, 'THISTHISHTISHTISSHTI')
-                if (exist):
-                    print('yes tabel is exist')
-                    pass
-                else:
-                    print('Tabel is not exist')
-                    query = "SELECT money FROM usersmoney WHERE userid = %s"
-                    print(owner_id, 'THIS IS ALSO CHEKC')
-                    cur_sor.execute(query, (owner_id,))
-                    ownermoney = cur_sor.fetchone()
-                    print(ownermoney, 'THIS IS OWNER MONEY')
-                    if (not ownermoney):
-                        print('User is not exist')
-                        messagebox.showerror(
-                            'error', 'Pleased input valid information.')
-                        return
-                    print(my_userid, 'THIS IS WHAT CHECK THE FIRST')
-                    cur_sor.execute(query, (my_userid[0],))
-                    sendermoney = cur_sor.fetchone()
-                    print(sendermoney, 'THIS IS THE SENDER MONEY')
-                    omoney = int(ownermoney[0])
-                    smoney = int(sendermoney[0])
-                    print(omoney, 'HELLO WORLD')
-            #   query = "SELECT * FROM uploadedbikes WHERE userid = %s AND id = %s"
-            #   cur_sor.execute(query, (owner_id,bike_id))
-            #   ownerbike = cur_sor.fetchall()
-            #   print(ownerbike,'This is the owner bike')
-
-            #   Update usermoney or let's  manage the consistencey
-                    update_query = "UPDATE usersmoney SET money = %s WHERE userid = %s"
-                    new_money_fo_the_owner = omoney+send_price
-                    print(new_money_fo_the_owner, owner_id, 'CHECK111')
-                    cur_sor.execute(
-                        update_query, (new_money_fo_the_owner, owner_id))
-                    mydb.commit()
-            #   update sender money
-                    update_sender_money = "UPDATE usersmoney SET money = %s WHERE userid = %s"
-                    new_money_fo_the_sender = smoney-send_price
-                    print(new_money_fo_the_sender, my_userid)
-
-                    cur_sor.execute(update_sender_money,
-                                    (new_money_fo_the_sender, my_userid[0]))
-                    mydb.commit()
-
-            #   Let'supdate the bike available if the user book the bike
-                query_foravai = "UPDATE uploadedbikes SET available = %s WHERE userid= %s"
-                avai = 'NO'
-                cur_sor.execute(query_foravai, (avai, owner_id))
+               CREATE TABLE {table_name} (
+               id INT AUTO_INCREMENT PRIMARY KEY,
+               senderid VARCHAR(255),
+               receiverid VARCHAR(255),
+               bikeid VARCHAR(255),
+               price VARCHAR(255),
+               profileimage VARCHAR(255),
+               bikeimage VARCHAR(255),
+               {transitiondate} DATE NOT NULL DEFAULT (CURRENT_DATE())
+             )
+             """
+                
+                cur_sor.execute(tb)
                 mydb.commit()
-                messagebox.showerror('sucess', 'sendSucessfull')
-                root.destroy()
 
+                sql4 = 'INSERT INTO transitions (senderid, receiverid, bikeid, price, profileimage,bikeimage) VALUES (%s, %s, %s, %s, %s, %s) '
+                value = ( username_from_back ,receiver_username , n, bbp, i[7], )
 
+          
+
+            
 # """
-            else:
-                print('No the money amoutnt in not big')
-                print(type(56), type(price_))
+            # else:
+            #     print('No the money amoutnt in not big')
+            #     print(type(56), type(price_))
 # Lets depickel the foreginkey
         fBikeid = 1
         def enter(event):
@@ -904,7 +857,7 @@ def add_to_card(n, o, i, bbp):
         message.bind('<FocusOut>', leave)
 
         signup_btn = Button(frame, text="Send", fg='white', bg='blue', width=15, font=(
-            'Roboto', '12', 'bold'), command=send_money)
+            'Roboto', '12', 'bold'), command= lambda receiver_username= o : send_money(receiver_username))
         signup_btn.place(x=90, y=260)
 # label=Label(frame,text="I have an account",fg='black',bg='white',font=('Roboto',9))
 # label.place(x=85,y=300)
@@ -1010,7 +963,7 @@ def go_to_theservicespage(event):
             value__ = (_data____s[i][3],)
             cur_sor.execute(sql_, value__)
             d__ = cur_sor.fetchone()
-            # print('Aayush basnet')
+
             print(d__[7],'HIMAL ACADEMY')
             # for _ in range(repetitions):
             if (k > 1):
@@ -1043,11 +996,13 @@ def go_to_theservicespage(event):
             bike_id = _data____s[i][0]
             owner_id____ = _data____s[i][3]
             bike_price__ = _data____s[i][6]
+            sender_username = d__[7]
+            b_img = _data____s[i][10]
             available_or_not___ = tk.Button(
                 item_frame__, text='Add to card', font=custom_font, bg='pink', command=lambda bike_id=bike_id, owner_id____=owner_id____,   d__=   d__, bike_price=
-                bike_price__: add_to_card(bike_id, owner_id____,d__, bike_price))
+                bike_price__, b_i = b_img,: add_to_card(bike_id, owner_id____,d__, bike_price,b_i))
             available_or_not___.place(x=23, y=266)
-            i_img = Image.open(f'uploadedbike/{_data____s[0][10]}')
+            i_img = Image.open(f'uploadedbike/{_data____s[i][10]}')
             hhh = 300
             www = 400
             img = i_img.resize((www, hhh))
@@ -1210,6 +1165,8 @@ def navs():
         def cut():
          try:
             global trac_big_frame_for_search
+            if('frameforthepayment' in globals()):
+              frameforthepayment.pack_forget()
             # messagebox.showinfo('a','a')
             canvas_____.pack_forget()
             big_frame_for_searchbikes.place_forget()
@@ -1236,10 +1193,13 @@ def navs():
             datas = cur_sor.fetchall()
             print(datas,'THIS IS THEUSERSEARCH')
 
+
+
             # Canvas 
 
             canvas_____ = tk.Canvas(root)
             canvas_____.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        
         
 
 
@@ -1250,17 +1210,19 @@ def navs():
     
 
 
-            big_frame_for_searchbikes = Frame(canvas_____, height=1000, width=1160, background='orange')
+            big_frame_for_searchbikes = Frame(canvas_____, height=1000, width=1160, background='orange',padx=2,pady=2)
             big_frame_for_searchbikes.place(x=20, y=10)
             cut_img = Image.open('cut.png')
             h_s = 34
             w_s = 40
+
+
             # Add widgets to the Frame
 
 
             i_c = cut_img.resize((w_s, h_s), Image.LANCZOS)
             img_for_cut_button = ImageTk.PhotoImage(i_c)
-            label_for_cut_button = tk.Button(big_frame_for_searchbikes, text='cut' ,bg='gray' ,image=img_for_cut_button, command=cut)
+            label_for_cut_button = tk.Button(canvas_____, text='cut' ,bg='gray' ,image=img_for_cut_button, command=cut)
             label_for_cut_button.image = img_for_cut_button
             label_for_cut_button.place(x=0, y=0)
             prevous  = Button(big_frame_for_searchbikes, text='Previous')
@@ -1268,6 +1230,90 @@ def navs():
             next__  = Button(big_frame_for_searchbikes, text='Next')
             next__.place(x=383, y=740)
             trac_big_frame_for_search = 2
+
+            r = 0
+            k =0 
+            for i in range(0, len(datas)):
+                print(i,'I AM I')
+                sql1= ('SELECT * FROM bikebreezeuser WHERE username = %s')
+                value1 = (datas[i][3], )
+                cur_sor.execute(sql1, value1)
+                pimage = cur_sor.fetchone()
+                print(pimage,'THE ROCK')
+                d__ = pimage
+
+                if(k==2):
+                    k = 0
+                item_frame____ = tk.Frame(
+                big_frame_for_searchbikes, width=610, height=430, borderwidth=1, relief=tk.RAISED, padx=12, pady=12)
+                item_frame____.grid(row=r, column=k, padx=12, pady=12)
+                custom_font = font.Font(
+                family="Helvetica", size=16, weight="bold", underline=True)
+                custom_font = font.Font(family="Helvetica", size=12)
+                # messagebox.showinfo('e','error')
+
+                up_date___ = Label(
+                item_frame____, text=f'uploaddate: {datas[i][12]}', font=custom_font, fg="#666666", bg="#FFFFFF")
+                up_date___.place(x=0, y=23)
+                # messagebox.showinfo('e','error')
+
+                name_bike___ = Label(
+                item_frame____, text=f'BikeName: {datas[i][1]}', font=custom_font)
+                name_bike___.place(x=23, y=55)
+                name_model___ = Label(
+                item_frame____, text=f'Model:{" 1234RHS"}', font=custom_font)
+                name_model___.place(x=23, y=85)
+                phone_number___ = Label(
+                item_frame____, text='890797987', font=custom_font)
+                phone_number___.place(x=23, y=122)
+                conditon__ofbike___ = Label(
+                item_frame____, text='Condition', font=custom_font)
+                conditon__ofbike___.place(x=23, y=153)
+                price_of_bike___ = Label(
+                item_frame____, text='23234', font=custom_font)
+                price_of_bike___.place(x=23, y=184)
+                # messagebox.showinfo('e','error')
+
+                bike_id = datas[i][0]
+                owner_id____ = datas[i][3]
+                bike_price__ = datas[i][6]
+                b_img =  datas[i][10]
+
+                available_or_not___ = tk.Button(
+                item_frame____, text='Add to card', font=custom_font, bg='pink',command=lambda bike_id=bike_id, owner_id____=owner_id____,   d__=   d__, bike_price=
+                bike_price__ , b_imgs= b_img: add_to_card(bike_id, owner_id____,d__, bike_price, b_imgs))
+                available_or_not___.place(x=23, y=266)
+                # messagebox.showinfo('e','error')
+                i_img = Image.open(f'uploadedbike/{datas[0][10]}')
+                hhh = 300
+                www = 400
+                img = i_img.resize((www, hhh))
+                i__ = ImageTk.PhotoImage(img)
+                lab_image11 = Label(item_frame____, image=i__)
+                lab_image11.image = i__
+                lab_image11.place(x=180)
+                            # Prifile of the uploader bike
+
+                p_img = Image.open(f'profileimage/{d__[7]}')
+                heightanohter_one = 100
+                width_another_one = 100
+                imggg = p_img.resize((width_another_one, heightanohter_one))
+                ii = ImageTk.PhotoImage(imggg)
+                lab_image12 = Label(item_frame____, image=ii)
+                lab_image12.image = ii
+                lab_image12.place(x=12)
+                k += 1
+                # show_allthe_label_info = Label(
+                # item_frame__, font=custom_font,  text='shalsdmgasdngasdngasdgasdgbasjdkgbsasdnsajdbgasdgbasjdgbvasgvasdg\nasdsakdbgjsadgvsajdg')
+
+                # show_allthe_label_info.place(x=23, y=350)
+
+
+
+
+
+
+
          except Exception as e:
              print(e)
             

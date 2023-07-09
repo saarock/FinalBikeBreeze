@@ -80,8 +80,8 @@ def login():
     datas = pickle.load(fileobj)
     fileobj.close()
      # After Checking the data simply close the connections and the database
-    cur_sor.close()
-    mydb.close()
+    # cur_sor.close()
+    # mydb.close()
 
     print(datas,'THIS IS USER DATAS')
     window.destroy()
