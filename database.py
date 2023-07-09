@@ -1,5 +1,7 @@
 import mysql.connector
 
+
+# Using the singleton design pattern 
 mydb = mysql.connector.connect(
     host = 'localhost',
     user = 'root',

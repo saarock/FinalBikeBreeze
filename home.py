@@ -609,10 +609,16 @@ id_of_the_bike_which_is_uniqe = None
 
 
 # Add to card
-def add_to_card(n, o, i, bbp, bimage):
+def add_to_card(n, o, i__, bbp, bimage, bikeowner_number_phone):
     # messagebox.showinfo('a', bimage)
     global id_of_the_bike_which_is_uniqe, frameforthepayment
+    # messagebox.showinfo('a', i[7])
+    # messagebox.showinfo('b', bimage)
     try:
+        print(o,user_id_from_back,'TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT')
+        if(o == username_from_back):
+            messagebox.showinfo('Info','Sorry you cannot book your ownbike.')
+            return
         def remove_transition_frame():
             frameforthepayment.pack_forget()
         id_of_the_bike_which_is_uniqe = n
@@ -653,6 +659,8 @@ def add_to_card(n, o, i, bbp, bimage):
 
 # Book the bike by sending the money;
         def send_money(receiver_username):
+
+
             # message
             # messagebox.showerror('a', )
             print('Ok i am running')
@@ -701,6 +709,10 @@ def add_to_card(n, o, i, bbp, bimage):
             if(int(sendermoney) <= 0 and int(sendermoney) < int(bbp)):
                 messagebox.showinfo('balance','Not Sufficient balance')
                 return
+            
+            yesor_no = messagebox.askyesno('Warn', 'Are you Sure you are interest on this Bike?')
+            if(not yesor_no):
+                return
 
 
 # Getting the receiver money
@@ -715,10 +727,11 @@ def add_to_card(n, o, i, bbp, bimage):
 # If ALL RIGHT THEN EXEUTE THE PROGRAM
         
        
-            cur_sor.execute("SHOW TABLES LIKE 'transitions'")
+            cur_sor.execute("SHOW TABLES LIKE 'transitionofbikes'")
             yes = cur_sor.fetchone()
             if(not yes):
-                table_name = "transitions"
+                # messagebox.askyesno()
+                table_name = "transitionofbikes"
                 transitiondate = "transitiondate"
                 tb = f"""
                CREATE TABLE {table_name} (
@@ -736,8 +749,110 @@ def add_to_card(n, o, i, bbp, bimage):
                 cur_sor.execute(tb)
                 mydb.commit()
 
-                sql4 = 'INSERT INTO transitions (senderid, receiverid, bikeid, price, profileimage,bikeimage) VALUES (%s, %s, %s, %s, %s, %s) '
-                value = ( username_from_back ,receiver_username , n, bbp, i[7], )
+                messagebox.showerror('a','1')
+
+                sql4 = 'INSERT INTO transitionofbikes (senderid, receiverid, bikeid, price, profileimage,bikeimage) VALUES (%s, %s, %s, %s, %s, %s) '
+                value4 = ( username_from_back ,receiver_username , n, bbp, str(i__[7]),  str(bimage))
+                for ii in value4:
+                    print(ii,'AaAa')
+                cur_sor.execute(sql4, value4)
+                mydb.commit()
+                messagebox.showerror('a','2')
+
+
+                # make chamnges on the sender and the receiver database
+                sender_new_money = int(sendermoney)- int(bbp)
+                receiver_new_money = int(receivermoney)+ int(bbp)
+                messagebox.showerror('a','3')
+
+                # Change the sender moneyon the database
+                sql5 ='UPDATE usermoney SET balance =%s WHERE username=%s'
+                value5 = (sender_new_money, username_from_back)
+                cur_sor.execute(sql5, value5)
+                mydb.commit()
+                messagebox.showerror('a','4')
+
+
+                # Change the sender money in the database
+                sql6 ='UPDATE usermoney SET balance =%s WHERE username=%s'
+                value6 = (receiver_new_money, receiver_username)
+                cur_sor.execute(sql6, value6)
+                mydb.commit()
+                messagebox.showerror('a','5')
+                
+
+
+                 # remove the bike from available
+                make_not_available = 'No'
+                sql7 ='UPDATE userbikes SET available =%s WHERE id=%s'
+                value7 = (make_not_available, n)
+                messagebox.showerror('a','5.5')
+
+                cur_sor.execute(sql7, value7)
+                mydb.commit()
+                messagebox.showerror('a','6')
+
+
+
+
+
+                
+                messagebox.showinfo('Sucess', 'Send Sucessfull now you can call him on the number that we will give you!')
+                messagebox.showinfo('Number', bikeowner_number_phone)
+                messagebox.showinfo('Impo', 'If any problem occurs pleased Contact us. Thank you!')
+            else:
+
+                sql8 = 'INSERT INTO transitionofbikes (senderid, receiverid, bikeid, price, profileimage,bikeimage) VALUES (%s, %s, %s, %s, %s, %s) '
+                value8 = ( username_from_back ,receiver_username , n, bbp, str(i__[7]),  str(bimage))
+          
+                cur_sor.execute(sql8, value8)
+                mydb.commit()
+                messagebox.showerror('a','2')
+
+
+                # make chamnges on the sender and the receiver database
+                sender_new_money = int(sendermoney)- int(bbp)
+                receiver_new_money = int(receivermoney)+ int(bbp)
+                messagebox.showerror('a','3')
+
+                # Change the sender moneyon the database
+                sql9 ='UPDATE usermoney SET balance =%s WHERE username=%s'
+                value9 = (sender_new_money, username_from_back)
+                cur_sor.execute(sql9, value9)
+                mydb.commit()
+                messagebox.showerror('a','4')
+
+
+                # Change the sender money in the database
+                sql10 ='UPDATE usermoney SET balance =%s WHERE username=%s'
+                value10 = (receiver_new_money, receiver_username)
+                cur_sor.execute(sql10, value10)
+                mydb.commit()
+                messagebox.showerror('a','5')
+                
+
+
+                 # remove the bike from available
+                make_not_available = 'No'
+                sql11 ='UPDATE userbikes SET available =%s WHERE id=%s'
+                value11 = (make_not_available, n)
+                messagebox.showerror('a','5.5')
+
+                cur_sor.execute(sql11, value11)
+                mydb.commit()
+                messagebox.showerror('a','6')
+
+
+
+
+
+                
+                messagebox.showinfo('Sucess', 'Send Sucessfull now you can call him on the number that we will give you!')
+                messagebox.showinfo('Number', bikeowner_number_phone)
+                messagebox.showinfo('Impo', 'If any problem occurs pleased Contact us. Thank you!')
+    
+
+                
 
           
 
@@ -855,7 +970,6 @@ def add_to_card(n, o, i, bbp, bimage):
         message.insert(3, "Message")
         message.bind("<FocusIn>", enter)
         message.bind('<FocusOut>', leave)
-
         signup_btn = Button(frame, text="Send", fg='white', bg='blue', width=15, font=(
             'Roboto', '12', 'bold'), command= lambda receiver_username= o : send_money(receiver_username))
         signup_btn.place(x=90, y=260)
@@ -870,7 +984,7 @@ def add_to_card(n, o, i, bbp, bimage):
 # Load the image
 
         def images():
-            img_moneyyy = Image.open('m.png')
+            img_moneyyy = Image.open('money.png')
             print(img_moneyyy)
             height_of_money = 203
             width_of_money = 304
@@ -904,7 +1018,6 @@ def go_to_theservicespage(event):
         look_uploadsmain.place_forget()
         bike.config(bg='orange')
         profile.config(bg='orange2')
-
         def on_mousewheel(event):
             if (canvasss):
                 canvasss.yview_scroll(int(-1*(event.delta/120)), "units")
@@ -959,7 +1072,9 @@ def go_to_theservicespage(event):
         k = 0
         r = 0
         for i in range(0, len(_data____s)):
-            print(_data____s[i][3])
+            if(_data____s[i][9].strip() == 'No'):
+                continue
+            print(_data____s[i] )
             value__ = (_data____s[i][3],)
             cur_sor.execute(sql_, value__)
             d__ = cur_sor.fetchone()
@@ -998,9 +1113,10 @@ def go_to_theservicespage(event):
             bike_price__ = _data____s[i][6]
             sender_username = d__[7]
             b_img = _data____s[i][10]
+            bikeowner_pnumber = _data____s[i][4]
             available_or_not___ = tk.Button(
                 item_frame__, text='Add to card', font=custom_font, bg='pink', command=lambda bike_id=bike_id, owner_id____=owner_id____,   d__=   d__, bike_price=
-                bike_price__, b_i = b_img,: add_to_card(bike_id, owner_id____,d__, bike_price,b_i))
+                bike_price__, b_i = b_img, bike_owner_phonenumber = bikeowner_pnumber: add_to_card(bike_id, owner_id____,d__, bike_price,b_i, bike_owner_phonenumber))
             available_or_not___.place(x=23, y=266)
             i_img = Image.open(f'uploadedbike/{_data____s[i][10]}')
             hhh = 300
@@ -1191,12 +1307,14 @@ def navs():
             value = (txt.strip(),)
             cur_sor.execute(sql)
             datas = cur_sor.fetchall()
+            if(len(datas) <=0):
+                messagebox.showinfo('Info', 'Sorry no location found.')
+                return
             print(datas,'THIS IS THEUSERSEARCH')
 
 
 
             # Canvas 
-
             canvas_____ = tk.Canvas(root)
             canvas_____.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         
@@ -1217,6 +1335,7 @@ def navs():
             w_s = 40
 
 
+
             # Add widgets to the Frame
 
 
@@ -1233,7 +1352,11 @@ def navs():
 
             r = 0
             k =0 
+            keepthemobilenumbers= []
             for i in range(0, len(datas)):
+                if(datas[i][9].strip() == 'No'):
+                    keepthemobilenumbers.append(datas[i][4])
+                    continue
                 print(i,'I AM I')
                 sql1= ('SELECT * FROM bikebreezeuser WHERE username = %s')
                 value1 = (datas[i][3], )
@@ -1244,6 +1367,7 @@ def navs():
 
                 if(k==2):
                     k = 0
+                global item_frame____
                 item_frame____ = tk.Frame(
                 big_frame_for_searchbikes, width=610, height=430, borderwidth=1, relief=tk.RAISED, padx=12, pady=12)
                 item_frame____.grid(row=r, column=k, padx=12, pady=12)
@@ -1278,10 +1402,12 @@ def navs():
                 owner_id____ = datas[i][3]
                 bike_price__ = datas[i][6]
                 b_img =  datas[i][10]
+                bikeowner_phumber = datas[i][4]
+
 
                 available_or_not___ = tk.Button(
                 item_frame____, text='Add to card', font=custom_font, bg='pink',command=lambda bike_id=bike_id, owner_id____=owner_id____,   d__=   d__, bike_price=
-                bike_price__ , b_imgs= b_img: add_to_card(bike_id, owner_id____,d__, bike_price, b_imgs))
+                bike_price__ , b_imgs= b_img, bikeowner_phonnumber= bikeowner_phumber : add_to_card(bike_id, owner_id____,d__, bike_price, b_imgs, bikeowner_phonnumber))
                 available_or_not___.place(x=23, y=266)
                 # messagebox.showinfo('e','error')
                 i_img = Image.open(f'uploadedbike/{datas[0][10]}')
@@ -1303,11 +1429,44 @@ def navs():
                 lab_image12.image = ii
                 lab_image12.place(x=12)
                 k += 1
-                # show_allthe_label_info = Label(
-                # item_frame__, font=custom_font,  text='shalsdmgasdngasdngasdgasdgbasjdkgbsasdnsajdbgasdgbasjdgbvasgvasdg\nasdsakdbgjsadgvsajdg')
 
-                # show_allthe_label_info.place(x=23, y=350)
+            if('item_frame____' not in locals()):
+                # globals
+                messagebox.showinfo('Info', 'Sorry bikes not Found.')
+                if(len(keepthemobilenumbers) >0 ):
+                #  rr = 0
+                #  cc = 0
 
+
+# I dont Know why not Wokring i have to work hrere
+
+# Copy to the clipbord after user click the bikenumber
+                 def copy(number):
+                     root.clipboard_append(number)
+                     messagebox.showinfo('Info','Copied.')
+                     
+                 frame_not_found = tk.Frame(big_frame_for_searchbikes, width=822,height=800, bg='black')
+                 frame_not_found.place(x=25,y=23)
+                #  messagebox.showinfo('a','ad')
+                 label_not_found = tk.Label(frame_not_found, text='Not Found But you can call on the given number', font=2333 , fg='white', bg='black')
+                 label_not_found.place(x=23, y=23)
+    
+                 for number_p in keepthemobilenumbers:
+                      number_for_call = tk.Button(frame_not_found, text=f'{number_p}', font=2333 , fg='white', bg='black',command= lambda n=number_p: copy(n))
+                      number_for_call.pack()
+                      messagebox.showinfo('a', number_for_call.cget('text'))
+                    #   rr+=1
+                    #   cc+=1
+
+                else:
+                      frame_not_found = tk.Frame(big_frame_for_searchbikes, width=822,height=800, bg='black')
+                      frame_not_found.place(x=25,y=23)
+                      label_not_found = tk.Label(frame_not_found, text='Not Found', font=2333 , fg='white', bg='black')
+                      label_not_found.place(x=233, y=233)
+                  
+                 
+
+    
 
 
 
@@ -1435,7 +1594,6 @@ def navs():
                     dir_ = f'profileimage/{file_}'
                     if (os.path.exists('profileimage')):
                         resize_profile1.save(dir_)
-
                     else:
                         os.makedirs('profileimage')
                         resize_profile1.save(dir_)
