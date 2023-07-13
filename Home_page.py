@@ -23,4 +23,27 @@ f1.pack(side=LEFT,fill="y")
 # f2=Frame(root,bg="white",borderwidth=10,padx=125,relief=SUNKEN)
 # f2.pack(side=TOP,fill="x")
 
-root.mainloop()
+# root.mainloop()
+l = 'aayush'
+b = 'aayush'
+print(l==b) #True
+print(l is b) #True
+import json
+# json.dump
+import copy
+v = [1,2,2,4]
+# l = copy.deepcopy(v)
+print('Yes')
+f = v.copy()
+f[0]= 1000
+print(f)
+print(v)
+
+print(l)
+from collections import deque
+d = deque()
+d.append(1)
+d.append(2)
+d.append(3)
+print(d.popleft())
+print(d)
