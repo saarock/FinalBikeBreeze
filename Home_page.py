@@ -24,6 +24,7 @@ f1.pack(side=LEFT,fill="y")
 # f2.pack(side=TOP,fill="x")
 
 # root.mainloop()
+# pytohn deep copy ante
 l = 'aayush'
 b = 'aayush'
 print(l==b) #True
