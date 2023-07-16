@@ -101,28 +101,79 @@
 #    import login
 
 
+# import tkinter as tk
+# from tkinter import ttk
+
+# def validate_entry():
+#     pass
+#    # #  if entry.get() == "":
+#    #      print("Please enter a value!")
+#    #  else:
+#    #    pass
+#       #   print("Entry value:", entry.get())
+
+# window = tk.Tk()
+
+# # style = ttk.Style()
+# # style.configure("TEntry", font=('Helvetica', 12), fieldbackground='black', foreground='green')
+# # style.configure("TButton", font=('Helvetica', 12))
+
+# # entry = ttk.Entry(window, width=30)
+# # entry.pack(padx=10, pady=10)
+
+# validate_button = ttk.Button(window, text="Validatrrre", bg='black' , command=validate_entry,)
+# validate_button.pack()
+
+# window.mainloop()
+
 import tkinter as tk
-from tkinter import ttk
+def on_mousewheel(event):
+    canvas = event.widget
+    scrollbar = scrollbars[canvas]
+    canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
 
-def validate_entry():
-    pass
-   # #  if entry.get() == "":
-   #      print("Please enter a value!")
-   #  else:
-   #    pass
-      #   print("Entry value:", entry.get())
+root = tk.Tk()
 
-window = tk.Tk()
+# Other code...
 
-# style = ttk.Style()
-# style.configure("TEntry", font=('Helvetica', 12), fieldbackground='black', foreground='green')
-# style.configure("TButton", font=('Helvetica', 12))
+# Create a dictionary to store canvas-scrollbar pairs
+scrollbars = {}
 
-# entry = ttk.Entry(window, width=30)
-# entry.pack(padx=10, pady=10)
+canvasss = tk.Canvas(root, width=1100, height=1100, borderwidth=0, highlightthickness=0)
+canvasss.pack()
 
-validate_button = ttk.Button(window, text="Validatrrre", bg='black' , command=validate_entry,)
-validate_button.pack()
+scrollbar = tk.Scrollbar(canvasss, orient=tk.VERTICAL, command=canvasss.yview)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+canvasss.configure(yscrollcommand=scrollbar.set)
 
-window.mainloop()
+# Associate the canvas with its scrollbar in the dictionary
+scrollbars[canvasss] = scrollbar
 
+canvasss.bind_all("<MouseWheel>", on_mousewheel)
+
+canvas_frame = tk.Frame(canvasss, height=1242, width=2222)
+canvas_frame.place(x=222)
+canvasss.create_window((0, 0), window=canvas_frame, anchor=tk.NW)
+
+# Add content to canvas_frame
+
+# Create and configure the second canvas
+canvasss2 = tk.Canvas(root, width=1100, height=1100, borderwidth=0, highlightthickness=0)
+canvasss2.pack()
+
+scrollbar2 = tk.Scrollbar(canvasss2, orient=tk.VERTICAL, command=canvasss2.yview)
+scrollbar2.pack(side=tk.RIGHT, fill=tk.Y)
+canvasss2.configure(yscrollcommand=scrollbar2.set)
+
+# Associate the canvas with its scrollbar in the dictionary
+scrollbars[canvasss2] = scrollbar2
+
+canvasss2.bind_all("<MouseWheel>", on_mousewheel)
+
+canvas_frame2 = tk.Frame(canvasss2, height=1242, width=2222)
+canvas_frame2.place(x=222)
+canvasss2.create_window((0, 0), window=canvas_frame2, anchor=tk.NW)
+
+# Add content to canvas_frame2
+
+root.mainloop()

@@ -8,6 +8,7 @@ import bcrypt
 from tkinter import ttk
 from datetime import datetime, date
 # from tkinter import font
+import traceback
 
 
 # Pickle for the cache the user data
@@ -34,21 +35,45 @@ root.resizable(False, False)
 
 # from client import socket
 
+# def get_data():
+#     global data_s
+#     try:
+#         file = 'username.pkl'
+#         # fileobj = open(file, 'rb')
+#         # data_s = pickle.load(fileobj)
+#         # print(data_s, 'THETHE')
+#         # fileobj.close()
+#         file = 'username.pkl'
+#         with open(file, 'rb') as fileobj:
+#           data_s = pickle.load(fileobj)
+#           print(data_s, 'THETHE')
+#     except TypeError or FileNotFoundError as e: 
+#         import signup
+
+
+# get_data()
+
 def get_data():
     global data_s
     try:
         file = 'username.pkl'
-        fileobj = open(file, 'rb')
-        data_s = pickle.load(fileobj)
-        fileobj.close()
-        # print(data_s, 'I loveidivchchha gauatma')
-    except EXCEPTION as e:
-        messagebox.showinfo('Pleased you have register first.')
+        with open(file, 'rb') as fileobj:
+            data_s = pickle.load(fileobj)
+        print(data_s, 'THETHE')
+        # Rest of your code...
+
+    except Exception as e:
+        print("An exception occurred:", type(e).__name__)
+        print("Exception details:", str(e))
+        traceback.print_exc()
+        # messagebox.showinfo('Please register first.')
         root.destroy()
         import signup
 
-
+# Call the get_data() function
 get_data()
+
+
 
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -308,8 +333,6 @@ bike__image = ''
 
 def bike_upload():
     try:
-        #    global bike__image
-        #    bike__image = ''
         def upload_bike():
             try:
                 global bike__image, file__, resize_Bike
@@ -860,7 +883,6 @@ def add_to_card(n, o, i__, bbp, bimage, bikeowner_number_phone):
                 sql11 = 'UPDATE userbikes SET available =%s WHERE id=%s'
                 value11 = (make_not_available, n)
                 messagebox.showerror('a', '5.5')
-
                 cur_sor.execute(sql11, value11)
                 mydb.commit()
                 messagebox.showerror('a', '6')
@@ -912,7 +934,7 @@ def add_to_card(n, o, i__, bbp, bimage, bikeowner_number_phone):
                     Price.delete(0, END)
                     return
                 fPrice = 2
-
+# userbikes
         def leave(event):
             nonlocal fPrice
             if Price.get() == '':
@@ -1048,8 +1070,11 @@ def go_to_theservicespage(event):
         profile.config(bg='orange2')
 
         def on_mousewheel(event):
-            if (canvasss):
+            # if (event.widget ==  canvasss):
+                # messagebox.showerror('adsfsdf')
                 canvasss.yview_scroll(int(-1*(event.delta/120)), "units")
+            # elif(event.widget == canvas_toshowthetrasation):
+            #     canvas_toshowthetrasation.yview_scroll(int(-1 * (event.delta / 120)), "units")
 
 # Create the main Tkinter window
 
@@ -1062,8 +1087,8 @@ def go_to_theservicespage(event):
         sql = 'SELECT * FROM userbikes'
         cur_sor.execute(sql)
         _data____s = cur_sor.fetchall()
-
-        sql_ = 'SELECT * FROM BikeBreezeuser WHERE username = %s'
+        print(_data____s, 'idididi')
+      
 
         # print(_data____s, 'HELLO IDICHCHHA GAUTAM ')
         if (len(_data____s) < 1):
@@ -1101,19 +1126,32 @@ def go_to_theservicespage(event):
         k = 0
         r = 0
         label_font = font.Font(family="Helvetica", size=11, weight="bold")
+        t_l = 0
         for i in range(0, len(_data____s)):
             if (_data____s[i][9].strip() == 'No'):
                 continue
             # print(_data____s[i])
-            value__ = (_data____s[i][3],)
+            # if(t_l == 0):
+            sql_ = 'SELECT * FROM BikeBreezeuser WHERE username = %s'
+            print(_data____s[i][3],'Bitch')
+            # value__ = (_data____s[i][3],)
+            value__ = (username_from_back,)
             cur_sor.execute(sql_, value__)
             d__ = cur_sor.fetchone()
+            print(d__, 'Hey bic')
+            t_l = 1
+            messagebox.showerror('a', 1)
+                # messagebox.showerror('a', 2)
 
             # print(d__[7], 'HIMAL ACADEMY')
             # for _ in range(repetitions):
             if (k > 1):
                 k = 0
                 r += 1
+                messagebox.showerror('a', 2)
+
+            messagebox.showerror('a', 3)
+            
 
             item_frame__ = tk.Frame(
                 canvas_frame, width=610, height=433, borderwidth=1, relief=tk.RAISED, padx=12, pady=12, bg='lightgray')
@@ -1145,7 +1183,9 @@ def go_to_theservicespage(event):
             bike_id = _data____s[i][0]
             owner_id____ = _data____s[i][3]
             bike_price__ = _data____s[i][6]
-            sender_username = d__[7]
+            messagebox.showerror('a', 4)
+
+            # sender_username = d__[7]
             b_img = _data____s[i][10]
             bikeowner_pnumber = _data____s[i][4]
             available_or_not___ = tk.Button(
@@ -1159,6 +1199,8 @@ def go_to_theservicespage(event):
             lab_image11 = Label(item_frame__, image=i)
             lab_image11.image = i
             lab_image11.place(x=180, y=100)
+            messagebox.showerror('a', 6)
+
 
             # Prifile of the uploader bike
             p_img = Image.open(f'profileimage/{d__[7]}')
@@ -1169,6 +1211,8 @@ def go_to_theservicespage(event):
             lab_image12 = Label(item_frame__, image=ii)
             lab_image12.image = ii
             lab_image12.place(x=382, y=-2)
+            messagebox.showerror('a', 7)
+
             # k += 1
             # show_allthe_label_info = Label(
             #     item_frame__, font=custom_font,  text='shalsdmgasdngasdngasdgasdgbasjdkgbsasdnsajdbgasdgbasjdgbvasgvasdg\nasdsakdbgjsadgvsajdg')
@@ -1195,10 +1239,14 @@ def go_to_theservicespage(event):
 # Add the canvas to the window
         canvasss.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         track_canvas = 2
+        messagebox.showerror('a', 8)
+
 
         # bike_upload_frame.place(x=233, y=104)
     except Exception as e:
+        print(e)
         messagebox.showerror('error', 'Pleased floow the rule.')
+        messagebox.showerror('error', 'Pleased floow the rule.baby')
         # print(e)
 
 
@@ -1799,12 +1847,13 @@ def profies():
                 datas = cur_sor.fetchone()
                 if (len(datas) < 1):
                     return
+                # enterpassword
                 # print(datas, 'THSITHISTHISHTSITHSITHSI IS YOUR DATAS')
                 up_date.config(text=f'{datas[12]}')
                 name_bike.insert(0, datas[1])
                 phone_number.insert(0, datas[4])
         #    name_model.insert(0, data_s[])
-                price_of_bike.insert(0, f'{datas[6]} RS')
+                price_of_bike.insert(0, f'{datas[6]}')
                 conditon__ofbike.insert(0, f'{datas[7]}')
                 available_or_not.insert(0, f'{datas[9]}')
                 ww = 400
@@ -1828,6 +1877,7 @@ def profies():
                 a_n = available_or_not.get()
                 b_c = conditon__ofbike.get()
                 b_d = bike_day.get()
+                
             except Exception as e:
                 messagebox.showerror('error', 'Pleased floow the rule.')
                 # print(e)
@@ -1931,6 +1981,9 @@ def profies():
                 available_or_not__ = available_or_not.get()
                 location__ = location_bike__.get()
                 bike_day__ = bike_day.get()
+                bike_price____ = price_of_bike.get()
+                days__ = bike_day.get()
+                # messagebox.showinfo('adf', days__)
 
                 # Calculate date
                 today = date.today()
@@ -1943,7 +1996,6 @@ def profies():
                 num_of_days = delta.days
                 print(num_of_days,'Hello')
                 # specific_date = datetime.strptime(specific_date_str, "%Y-%m-%d").date()
-    
 
                 if(int(bike_day__) >= num_of_days ):
                     messagebox.showinfo('info', 'Sorry you cannot change the informations until your date will completed.')
@@ -1952,14 +2004,12 @@ def profies():
 
                 
                 if(u_n.strip() == user__name.strip() and b_n.strip() ==bike__name.strip()  and phone_number__.strip() == p_n.strip() and a_n.strip() == available_or_not__.strip() 
-                    and b_c.strip() == bike_condition__.strip() and  l_n.strip() == location__.strip()  and b_d==bike_day__.strip()):
+                    and b_c.strip() == bike_condition__.strip() and  l_n.strip() == location__.strip()  and b_d==bike_day__.strip() ):
                     return
                 import enterpassword
                 enterpassword.frame.place(x=230, y=404)
+                enterpassword.get_the_password(pass_from_back, user__name, bike__name, phone_number__, bike_price____, available_or_not__, location__, days__, u_n)
 
-
-                enterpassword.get_the_password(pass_from_back)
-                # if(enterpassword.check_()):
             except Exception as e:
                 print(e)
                 messagebox.showerror(
@@ -2132,10 +2182,12 @@ def profies():
         def on_mousewheel(event):
             canvas_toshowthetrasation.yview_scroll(
                 int(-1*(event.delta/120)), "units")
+        global canvas_toshowthetrasation
 
         canvas_toshowthetrasation = tk.Canvas(
             look_uploadsmain, borderwidth=0, width=1050, height=400,  highlightthickness=0)
         canvas_toshowthetrasation.place(x=103, y=304)
+        # canvas_toshowthetrasation.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar = tk.Scrollbar(
             root, orient=tk.VERTICAL, command=canvas_toshowthetrasation.yview)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
@@ -2156,20 +2208,6 @@ def profies():
         forallthe_frame = tk.Frame(canvas_toshowthetrasation, bg='white')
         canvas_toshowthetrasation.create_window(
             (0, 0), window=forallthe_frame, anchor=tk.NW)
-
-        # show_all_sendamount = tk.Frame(
-        #     forallthe_frame, width=500, height=150, bg="lightgray", border=1, relief=tk.RAISED)
-        # show_all_sendamount.grid(row=0, column=0, padx=12, pady=12)
-
-        # history_image = Image.open('images/history.jpg')
-        # h_w = 1000
-        # h_h = 100
-        # h_img=history_image.resize((h_w, h_h),Image.LANCZOS)
-        # hist_img =ImageTk.PhotoImage(h_img)
-        # canvas_toshowthetrasation.create_image(0, 0, anchor=tk.NW, image=hist_img)
-        # label_history =tk.Label(canvas_toshowthetrasation, image=hist_img)
-        # label_history.image = hist_img
-        # label_history.pack()
 
         sql13 = 'SELECT * FROM transitionofbikes WHERE senderid = %s OR receiverid = %s'
         value13 = (username_from_back, username_from_back)
@@ -2311,7 +2349,3 @@ check()
 
 root.mainloop()
 
-# if(__name__=='__main__'):
-#     main()
-
-# pink

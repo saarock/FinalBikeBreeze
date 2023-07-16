@@ -51,7 +51,7 @@ def login():
     print(v)
     l = Password.get()
     print(l)
-    if(v=='' or l =='' or v== 'Email' or v == 'Password'):
+    if(v=='' or l =='' or v== 'Email' or l == 'Password'):
        messagebox.showinfo('info', 'Pleased fill the form')
 
     # Comaprring the password with the hash password first
