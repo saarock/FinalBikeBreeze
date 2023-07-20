@@ -47,7 +47,7 @@ root.resizable(False, False)
 #         with open(file, 'rb') as fileobj:
 #           data_s = pickle.load(fileobj)
 #           print(data_s, 'THETHE')
-#     except TypeError or FileNotFoundError as e: 
+#     except TypeError or FileNotFoundError as e:
 #         import signup
 
 
@@ -70,10 +70,9 @@ def get_data():
         root.destroy()
         import signup
 
+
 # Call the get_data() function
 get_data()
-
-
 
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -272,6 +271,7 @@ def go_and_destroy_cavnas():
     track_canvas = 1
 
 
+# History fake
 def go_toprofile(self):
     try:
         global iaminprofilifiamin2, u_t, track_canvas, s_t
@@ -280,7 +280,7 @@ def go_toprofile(self):
         look_uploadsmain.place(x=254, y=109)
         profile.config(bg='orange')
         u_t = 0
-        messagebox.showerror('a')
+        # messagebox.showerror('a')
         s_t = 0
         services.config(bg='orange2')
         bike.config(bg='orange2')
@@ -322,10 +322,12 @@ def bike_uploaded_click(event):
         bike_upload_frame.place(x=233, y=104)
         # print('Done')
         track_up = 2
-
-        canvasss.pack_forget()
-        track_canvas = 1
+        if ('canvasss' in globals()):
+            canvasss.pack_forget()
+            track_canvas = 1
     except Exception as e:
+        # print(e)
+        # print('yes')
         messagebox.showinfo('error', 'Pleased follow the rule.')
         # print(e)
 
@@ -381,7 +383,6 @@ def bike_upload():
                 ava_day = ava_days
                 price_ = prices
 
-
                 # price
                 locations = location
                 conditon__ = conditons
@@ -405,7 +406,6 @@ def bike_upload():
                         return 'mes'
                     if (not price_.isdigit()):
                         return 'mes'
-
 
                     b_nn = b_n
                     b_number = b_nnumber
@@ -442,15 +442,15 @@ def bike_upload():
         def store_to_data_base():
             try:
                 to_f = gets_alltheinfo()
-              
+
                 if (to_f == 'True'):
                     messagebox.showerror('error', 'name is called')
-        
+
                     print(
                         f'bn {b_n} ph {phn_number}, l {location}, p {price_}, c{conditon__}, a{ava_day},b_id{bike__image},e{email_from_back} {user_id_from_back}hh'
-                        )
+                    )
 
-                    #If true then let'screate a table if not exist and save if table already exist then save
+                    # If true then let'screate a table if not exist and save if table already exist then save
                     cur_sor.execute("SHOW TABLES LIKE 'userbikes'")
                     y_n = cur_sor.fetchall()
 
@@ -490,7 +490,7 @@ def bike_upload():
                             insert_datas = '''
         INSERT INTO userbikes (bikename, userid, username  ,phonenumber,  location,price ,bikecondition,days, available , bikeimage  ,email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s)
         '''
-                          
+
                             values = (b_n, user_id, username, phn_number, locations.lower(),
                                       price__, conditon__, ava_day, available, bike__image, email)
                             # print(3)
@@ -529,7 +529,7 @@ def bike_upload():
 
                             if (len(l) > 0):
                                 messagebox.showinfo(
-                                      'Note:', 'You can only add one bike!')
+                                    'Note:', 'You can only add one bike!')
                                 return
                             else:
                                 # print(3)
@@ -941,6 +941,7 @@ def add_to_card(n, o, i__, bbp, bimage, bikeowner_number_phone):
                     return
                 fPrice = 2
 # userbikes
+
         def leave(event):
             nonlocal fPrice
             if Price.get() == '':
@@ -976,6 +977,7 @@ def add_to_card(n, o, i__, bbp, bimage, bikeowner_number_phone):
         Password.bind('<FocusOut>', leave)
 
         fownerid = 1
+        # Profile
 
         def enter(event):
             nonlocal fownerid
@@ -1057,6 +1059,7 @@ track_canvas = 1
 
 # Upload Bike
 
+
 def go_to_theservicespage(event):
     # print(event, 'Thisis the')
     #  messagebox.showinfo('a', track_canvas)
@@ -1078,8 +1081,8 @@ def go_to_theservicespage(event):
 
         def on_mousewheel(event):
             # if (event.widget ==  canvasss):
-                # messagebox.showerror('adsfsdf')
-                canvasss.yview_scroll(int(-1*(event.delta/120)), "units")
+            # messagebox.showerror('adsfsdf')
+            canvasss.yview_scroll(int(-1*(event.delta/120)), "units")
             # elif(event.widget == canvas_toshowthetrasation):
             #     canvas_toshowthetrasation.yview_scroll(int(-1 * (event.delta / 120)), "units")
 
@@ -1095,7 +1098,6 @@ def go_to_theservicespage(event):
         cur_sor.execute(sql)
         _data____s = cur_sor.fetchall()
         print(_data____s, 'idididi')
-      
 
         # print(_data____s, 'HELLO IDICHCHHA GAUTAM ')
         if (len(_data____s) < 1):
@@ -1140,23 +1142,21 @@ def go_to_theservicespage(event):
             # if(t_l == 0):
             # messagebox.showinfo('info',f'INFO{_data____s[i][9].strip()}')
             sql_ = 'SELECT * FROM BikeBreezeuser WHERE username = %s'
-            print(_data____s[i][3],'Bitch')
+            print(_data____s[i][3], 'Bitch')
             # value__ = (_data____s[i][3],)
             value__ = (username_from_back,)
             cur_sor.execute(sql_, value__)
             d__ = cur_sor.fetchone()
             print(d__, 'Hey bic')
             t_l = 1
-         
-                # messagebox.showerror('a', 2)
+
+            # messagebox.showerror('a', 2)
 
             # print(d__[7], 'HIMAL ACADEMY')
             # for _ in range(repetitions):
             if (k > 1):
                 k = 0
                 r__ += 1
-           
-            
 
             item_frame__ = tk.Frame(
                 canvas_frame, width=610, height=433, borderwidth=1, relief=tk.RAISED, padx=12, pady=12, bg='lightgray')
@@ -1188,7 +1188,6 @@ def go_to_theservicespage(event):
             bike_id = _data____s[i][0]
             owner_id____ = _data____s[i][3]
             bike_price__ = _data____s[i][6]
-         
 
             # sender_username = d__[7]
             b_img = _data____s[i][10]
@@ -1205,8 +1204,6 @@ def go_to_theservicespage(event):
             lab_image11.image = i
             lab_image11.place(x=180, y=100)
             # messagebox.showinfo('info', f'{r__} a')
-            
-
 
             # Prifile of the uploader bike
             p_img = Image.open(f'profileimage/{d__[7]}')
@@ -1217,10 +1214,7 @@ def go_to_theservicespage(event):
             lab_image12 = Label(item_frame__, image=ii)
             lab_image12.image = ii
             lab_image12.place(x=382, y=-2)
-            k+=1
-
-           
-  
+            k += 1
 
             # k += 1
             # show_allthe_label_info = Label(
@@ -1248,9 +1242,6 @@ def go_to_theservicespage(event):
 # Add the canvas to the window
         canvasss.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         track_canvas = 2
-
-   
-
 
         # bike_upload_frame.place(x=233, y=104)
     except Exception as e:
@@ -1438,6 +1429,7 @@ def navs():
                 next__ = Button(big_frame_for_searchbikes, text='Next')
                 next__.place(x=383, y=740)
                 trac_big_frame_for_search = 2
+                # save change
 
                 r = 0
                 k = 0
@@ -1826,16 +1818,19 @@ def profies():
 
         def show_send_money(self):
             show_all2.config(bg='lightgray')
+            label_show_all_bikes.config(bg='lightgray')
             l.config(bg='orange')
             canvas_toshowthetrasation.place(x=103, y=324)
             show_all3.config(bg='lightgray')
             label_c.config(bg='lightgray')
 
             frame_for_upload.place_forget()
-            import complain 
+            import complain
             complain.frame.place_forget()
 
+
         def complain(self):
+            label_show_all_bikes.config(bg='lightgray')
             show_all2.config(background='lightgray')
             l.config(bg='lightgray')
             show_all3.config(bg='orange')
@@ -1845,8 +1840,10 @@ def profies():
             import complain
             complain.frame.place(x=380, y=404)
 
-
         # l = 1
+        # def (event):
+        #     messagebox.showerror('er','info')
+        #     pass
 
         def goand_bring_the_bike_details():
             try:
@@ -1877,7 +1874,6 @@ def profies():
                 name_bike.config(text='')
                 location_bike__.insert(0, f'{datas[5]}')
                 bike_day.insert(0, datas[8])
-          
 
                 u_n = name_username.get()
                 b_n = name_bike.get()
@@ -1888,7 +1884,7 @@ def profies():
                 a_n = available_or_not.get()
                 b_c = conditon__ofbike.get()
                 b_d = bike_day.get()
-                
+
             except Exception as e:
                 messagebox.showerror('error', 'Pleased floow the rule.')
                 # print(e)
@@ -1979,7 +1975,6 @@ def profies():
         # l_n = ''
         # b_i = ''
 
-
         # b_d = ''
         # Lets get all the informationhere
 
@@ -1999,27 +1994,29 @@ def profies():
                 # Calculate date
                 today = date.today()
                 print(today)
-                specific_date_str =    up_date.cget('text')
-                specific_date = datetime.strptime(specific_date_str, '%Y-%m-%d').date()
+                specific_date_str = up_date.cget('text')
+                specific_date = datetime.strptime(
+                    specific_date_str, '%Y-%m-%d').date()
 
                 current_date = date.today()
                 delta = current_date - specific_date
                 num_of_days = delta.days
-                print(num_of_days,'Hello')
+                print(num_of_days, 'Hello')
                 # specific_date = datetime.strptime(specific_date_str, "%Y-%m-%d").date()
 
-                if(int(bike_day__) >= num_of_days ):
-                    messagebox.showinfo('info', 'Sorry you cannot change the informations until your date will completed.')
+                if (int(bike_day__) >= num_of_days):
+                    messagebox.showinfo(
+                        'info', 'Sorry you cannot change the informations until your date will completed.')
                     return
-                print(u_n.strip() , user__name.strip() )
+                print(u_n.strip(), user__name.strip())
 
-                
-                if(u_n.strip() == user__name.strip() and b_n.strip() ==bike__name.strip()  and phone_number__.strip() == p_n.strip() and a_n.strip() == available_or_not__.strip() 
-                    and b_c.strip() == bike_condition__.strip() and  l_n.strip() == location__.strip()  and b_d==bike_day__.strip() ):
+                if (u_n.strip() == user__name.strip() and b_n.strip() == bike__name.strip() and phone_number__.strip() == p_n.strip() and a_n.strip() == available_or_not__.strip()
+                        and b_c.strip() == bike_condition__.strip() and l_n.strip() == location__.strip() and b_d == bike_day__.strip()):
                     return
                 import enterpassword
                 enterpassword.frame.place(x=230, y=404)
-                enterpassword.get_the_password(pass_from_back, user__name, bike__name, phone_number__, bike_price____, available_or_not__, location__, days__, u_n)
+                enterpassword.get_the_password(pass_from_back, user__name, bike__name,
+                                               phone_number__, bike_price____, available_or_not__, location__, days__, u_n)
 
             except Exception as e:
                 print(e)
@@ -2031,10 +2028,11 @@ def profies():
             try:
                 if (l == 2):
                     return
-                import complain 
+                import complain
                 complain.frame.place_forget()
                 show_all2.config(bg='orange')
                 label_c.config(bg='lightgray')
+                label_show_all_bikes.config(bg='orange')
                 # show_all.config(bg='lightgray')
                 canvas_toshowthetrasation.place_forget()
                 show_all3.config(bg='lightgray')
@@ -2049,6 +2047,10 @@ def profies():
         show_all2 = tk.Frame(show_all, height=64, width=502, cursor='hand2',
                              bg="lightgray", borderwidth=1, relief=tk.RAISED)
         show_all2.place(x=320)
+        label_show_all_bikes = tk.Label(show_all2, text='You bike', font=17, bg='lightgray')
+        label_show_all_bikes.place(x=232, y=2)
+        label_show_all_bikes.bind('<Button-1>', show_my_upload_bike)
+        # Complain
         show_all2.bind('<Button-1>', show_my_upload_bike)
 
         show_all1buttom2 = tk.Frame(show_all2, width=502, height=5,
@@ -2142,6 +2144,7 @@ def profies():
         # Bikeimage
         hh = 200
         ww = 200
+        # complain
 
         biimage = Image.open('delete.png')
         upbikeimage = biimage.resize((ww, hh), Image.LANCZOS)
@@ -2150,6 +2153,8 @@ def profies():
         label_bike.image = bi
         label_bike.place(x=700)
         goand_bring_the_bike_details()
+
+        # Transaction1
 
         # ////////////////////////////////////////
         # ////////////////////////////////////////
@@ -2169,8 +2174,8 @@ def profies():
                              cursor='hand2', bg='lightgray')
         show_all3.place(x=900)
         show_all3.bind('<Button-1>', complain)
-        label_c=tk.Label(show_all3, text='Complain',bg='lightgray',font=17)
-        label_c.place(x=12,y=2)
+        label_c = tk.Label(show_all3, text='Complain', bg='lightgray', font=17)
+        label_c.place(x=12, y=2)
         label_c.bind('<Button-1>', complain)
         # Transaction1
         show_all1buttom2 = tk.Frame(
@@ -2285,6 +2290,13 @@ def profies():
 
                 # r+=1
                 c += 1
+        else:
+            frame_not_found = tk.Frame(forallthe_frame, height=122, width=722,)
+            frame_not_found.pack()
+            label_not_found = tk.Label(
+                frame_not_found, text='Not found any history', font=label_font2)
+            label_not_found.place(x=522)
+
     except Exception as e:
         print(e)
         messagebox.showinfo('error', 'Pleased follow the rule.')
@@ -2321,6 +2333,7 @@ def check():
         value = (int(user_id_from_back),)
         cur_sor.execute(query, value)
         images = cur_sor.fetchall()
+
         # print(images, 'THIS IS THE IMAEG GORKHA')
 
         if (len(images[0][0]) > 0):
@@ -2360,4 +2373,3 @@ check()
 
 
 root.mainloop()
-
