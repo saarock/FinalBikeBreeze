@@ -307,8 +307,10 @@ def bike_uploaded_click(event):
         # messagebox.showerror('a')
         global iaminprofilifiamin2, track_canvas, u_t, s_t, track_up
         if (track_up == 2):
+            # messagebox.showinfo('info', 'This')
+            pass
             # messagebox.showerror('a')
-            return
+            # return
         u_t += 1
         s_t = 0
         bike.config(bg='orange')
@@ -366,8 +368,7 @@ def bike_upload():
 
         def gets_alltheinfo():
             try:
-                global b_n, b_number, ava_day, price_, locations, conditon__, phn_number, price__
-
+                global b_n, b_number, ava_day, price_, locations, conditon__, phn_number, price__, location
                 b_nn = bike_name.get()
                 b_nnumber = bike1_no.get()
                 phn_numbers = phone_no.get()
@@ -375,11 +376,12 @@ def bike_upload():
                 prices = bike_price.get()
                 location = bike_pickup_location.get()
                 conditons = bike_conditon.get()
-
                 b_n = b_nn
                 b_number = b_nnumber
                 ava_day = ava_days
                 price_ = prices
+
+
                 # price
                 locations = location
                 conditon__ = conditons
@@ -387,8 +389,6 @@ def bike_upload():
 
                 # values = (b_n,  phn_number, locations,price_,conditon,ava_day, bike__image,)
                 # print(values)
-                # return
-
                 # return
 
                 # print(bike__image, type(bike__image), 'IF IFIFIFIFIFIFIFIFIF')
@@ -405,6 +405,7 @@ def bike_upload():
                         return 'mes'
                     if (not price_.isdigit()):
                         return 'mes'
+
 
                     b_nn = b_n
                     b_number = b_nnumber
@@ -428,35 +429,36 @@ def bike_upload():
                     if (ava_day < 1):
                         messagebox.showinfo('note', 'invalid day')
                         return 'mes'
-
                     return 'True'
-
                 else:
                     return False
             except Exception as e:
+                print(e)
                 messagebox.showinfo(
                     f'Something', f'Something Wrong pleased checkout you data correctly! {e}')
                 return
+            # Upload your Bikes
 
         def store_to_data_base():
             try:
                 to_f = gets_alltheinfo()
-                # print(to_f)
+              
                 if (to_f == 'True'):
-                    # print('I AM TRUE NOW I AM, EXECUTING')
-
+                    messagebox.showerror('error', 'name is called')
+        
                     print(
-                        f'bn {b_n} ph {phn_number}, l {locations}, p {price_}, c{conditon}, a{ava_day},b_id{bike__image},e{email_from_back} {user_id_from_back}hh')
+                        f'bn {b_n} ph {phn_number}, l {location}, p {price_}, c{conditon__}, a{ava_day},b_id{bike__image},e{email_from_back} {user_id_from_back}hh'
+                        )
 
-                    #     If true then let'screate a table if not exist and save if table already exist then save
-
+                    #If true then let'screate a table if not exist and save if table already exist then save
                     cur_sor.execute("SHOW TABLES LIKE 'userbikes'")
                     y_n = cur_sor.fetchall()
-                    # print(y_n, len(y_n))
+
                     user_id = user_id_from_back
                     username = username_from_back
                     email = email_from_back
                     available = 'yes'
+                    # Add to card
                     # print(user_id, email, username, 'OK XA TW K AYRR')
 
                     if (user_id and username and email and available == 'yes'):
@@ -488,7 +490,7 @@ def bike_upload():
                             insert_datas = '''
         INSERT INTO userbikes (bikename, userid, username  ,phonenumber,  location,price ,bikecondition,days, available , bikeimage  ,email) VALUES (%s, %s, %s, %s, %s, %s, %s, %s,%s, %s, %s)
         '''
-                            # print(2)
+                          
                             values = (b_n, user_id, username, phn_number, locations.lower(),
                                       price__, conditon__, ava_day, available, bike__image, email)
                             # print(3)
@@ -509,6 +511,8 @@ def bike_upload():
                                 resize_Bike.save(dir_)
 
                         else:
+                            messagebox.showerror('error', 'name is called1')
+
                             # print('I come')
                             query = 'SELECT * FROM userbikes WHERE userid = %s'
                             value__ = (user_id,)
@@ -520,10 +524,12 @@ def bike_upload():
                             # print(2)
                             # print(2)
                             # print(l, 'HAHAHAHAHAHHA')
-                            print(len(1))
+                            # print(len(1))
+                            messagebox.showerror('error', 'name is called2')
+
                             if (len(l) > 0):
                                 messagebox.showinfo(
-                                    'Note:', 'You can only add one bike!')
+                                      'Note:', 'You can only add one bike!')
                                 return
                             else:
                                 # print(3)
@@ -1049,6 +1055,7 @@ def add_to_card(n, o, i__, bbp, bimage, bikeowner_number_phone):
 
 track_canvas = 1
 
+# Upload Bike
 
 def go_to_theservicespage(event):
     # print(event, 'Thisis the')
@@ -1122,9 +1129,8 @@ def go_to_theservicespage(event):
                                 height=1242, width=2222)
         canvas_frame.place(x=222)
         canvasss.create_window((0, 0), window=canvas_frame, anchor=tk.NW)
-
         k = 0
-        r = 0
+        r__ = 0
         label_font = font.Font(family="Helvetica", size=11, weight="bold")
         t_l = 0
         for i in range(0, len(_data____s)):
@@ -1132,6 +1138,7 @@ def go_to_theservicespage(event):
                 continue
             # print(_data____s[i])
             # if(t_l == 0):
+            # messagebox.showinfo('info',f'INFO{_data____s[i][9].strip()}')
             sql_ = 'SELECT * FROM BikeBreezeuser WHERE username = %s'
             print(_data____s[i][3],'Bitch')
             # value__ = (_data____s[i][3],)
@@ -1140,22 +1147,20 @@ def go_to_theservicespage(event):
             d__ = cur_sor.fetchone()
             print(d__, 'Hey bic')
             t_l = 1
-            messagebox.showerror('a', 1)
+         
                 # messagebox.showerror('a', 2)
 
             # print(d__[7], 'HIMAL ACADEMY')
             # for _ in range(repetitions):
             if (k > 1):
                 k = 0
-                r += 1
-                messagebox.showerror('a', 2)
-
-            messagebox.showerror('a', 3)
+                r__ += 1
+           
             
 
             item_frame__ = tk.Frame(
                 canvas_frame, width=610, height=433, borderwidth=1, relief=tk.RAISED, padx=12, pady=12, bg='lightgray')
-            item_frame__.grid(row=r, column=k, padx=12, pady=12)
+            item_frame__.grid(row=r__, column=k, padx=12, pady=12)
             custom_font = font.Font(
                 family="Helvetica", size=16, weight="bold", underline=True)
             custom_font = font.Font(family="Helvetica", size=12)
@@ -1183,7 +1188,7 @@ def go_to_theservicespage(event):
             bike_id = _data____s[i][0]
             owner_id____ = _data____s[i][3]
             bike_price__ = _data____s[i][6]
-            messagebox.showerror('a', 4)
+         
 
             # sender_username = d__[7]
             b_img = _data____s[i][10]
@@ -1199,7 +1204,8 @@ def go_to_theservicespage(event):
             lab_image11 = Label(item_frame__, image=i)
             lab_image11.image = i
             lab_image11.place(x=180, y=100)
-            messagebox.showerror('a', 6)
+            # messagebox.showinfo('info', f'{r__} a')
+            
 
 
             # Prifile of the uploader bike
@@ -1211,7 +1217,10 @@ def go_to_theservicespage(event):
             lab_image12 = Label(item_frame__, image=ii)
             lab_image12.image = ii
             lab_image12.place(x=382, y=-2)
-            messagebox.showerror('a', 7)
+            k+=1
+
+           
+  
 
             # k += 1
             # show_allthe_label_info = Label(
@@ -1239,7 +1248,8 @@ def go_to_theservicespage(event):
 # Add the canvas to the window
         canvasss.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         track_canvas = 2
-        messagebox.showerror('a', 8)
+
+   
 
 
         # bike_upload_frame.place(x=233, y=104)
@@ -1617,6 +1627,7 @@ def navs():
         home1.bind('<Button-1>', go_home)
         # home1.bind('<FocusOut>', l)
         home1_label.place(x=102, y=10)
+        # Location
         global services
 
 # Fot services
@@ -2103,6 +2114,7 @@ def profies():
         bike_loc = Label(frame_for_upload, text='Location', font=label_font2,
                          bg="white", fg="black", padx=10, relief=tk.RAISED, borderwidth=2)
         bike_loc.place(x=12, y=176)
+
         location_bike__ = ttk.Entry(
             frame_for_upload, text='Available', width=30)
         location_bike__.place(x=12, y=196)
