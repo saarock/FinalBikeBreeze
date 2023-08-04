@@ -1,0 +1,190 @@
+[1mdiff --git a/__pycache__/forgot.cpython-311.pyc b/__pycache__/forgot.cpython-311.pyc[m
+[1mindex f1b7b33..50c2436 100644[m
+Binary files a/__pycache__/forgot.cpython-311.pyc and b/__pycache__/forgot.cpython-311.pyc differ
+[1mdiff --git a/__pycache__/home.cpython-311.pyc b/__pycache__/home.cpython-311.pyc[m
+[1mindex 8b984f0..6350200 100644[m
+Binary files a/__pycache__/home.cpython-311.pyc and b/__pycache__/home.cpython-311.pyc differ
+[1mdiff --git a/__pycache__/setting.cpython-311.pyc b/__pycache__/setting.cpython-311.pyc[m
+[1mindex 8b87fce..375bcd2 100644[m
+Binary files a/__pycache__/setting.cpython-311.pyc and b/__pycache__/setting.cpython-311.pyc differ
+[1mdiff --git a/home.py b/home.py[m
+[1mindex 2cad82f..adcc713 100644[m
+[1m--- a/home.py[m
+[1m+++ b/home.py[m
+[36m@@ -9,7 +9,7 @@[m [mfrom tkinter import ttk[m
+ from datetime import datetime, date[m
+ # from tkinter import font[m
+ import traceback[m
+[31m-[m
+[32m+[m[32m# setting[m
+ [m
+ # Pickle for the cache the user data[m
+ import pickle[m
+[36m@@ -28,31 +28,11 @@[m [mroot.title("BikeBreeze")[m
+ root.minsize(1200, 1000)[m
+ root.state('zoomed')[m
+ [m
+[31m-[m
+[32m+[m[32m# root.geometry('200x300')[m
+ # Disable window resizing[m
+ root.resizable(False, False)[m
+ [m
+ [m
+[31m-# from client import socket[m
+[31m-[m
+[31m-# def get_data():[m
+[31m-#     global data_s[m
+[31m-#     try:[m
+[31m-#         file = 'username.pkl'[m
+[31m-#         # fileobj = open(file, 'rb')[m
+[31m-#         # data_s = pickle.load(fileobj)[m
+[31m-#         # print(data_s, 'THETHE')[m
+[31m-#         # fileobj.close()[m
+[31m-#         file = 'username.pkl'[m
+[31m-#         with open(file, 'rb') as fileobj:[m
+[31m-#           data_s = pickle.load(fileobj)[m
+[31m-#           print(data_s, 'THETHE')[m
+[31m-#     except TypeError or FileNotFoundError as e:[m
+[31m-#         import signup[m
+[31m-[m
+[31m-[m
+[31m-# get_data()[m
+[31m-[m
+ def get_data():[m
+     global data_s[m
+     try:[m
+[36m@@ -88,7 +68,8 @@[m [memail_from_back = ''[m
+ contact_from_back = ''[m
+ track_up = 1[m
+ s_t = 0[m
+[31m-[m
+[32m+[m[32mtrack_profile = 0[m
+[32m+[m[32mso_ = 1[m
+ [m
+ def check_user_is_login_or_not():[m
+     try:[m
+[36m@@ -142,8 +123,12 @@[m [mtrac_big_frame_for_search = 1[m
+ [m
+ def go_for_bikes():[m
+     try:[m
+[31m-[m
+         global go_for_bikes, track_home[m
+[32m+[m
+[32m+[m[32m        # Make forget to the complain page[m
+[32m+[m[32m        import complain[m
+[32m+[m[32m        complain.frame.place_forget()[m
+[32m+[m
+         # from client import socket[m
+         track_home = 1[m
+        #  mainframe.pack()[m
+[36m@@ -237,6 +222,7 @@[m [mdef go_home(event):[m
+                        font=for_l_sm_fon, bg='#f15d43', command=go_for_bikes)[m
+         b1.place(x=233, y=199)[m
+         track_home += 1[m
+[32m+[m[32m        # Logout[m
+ [m
+         # _home_nav = Frame(Home_FRAME, bg='white', height=100, width=1510)[m
+         # _home_nav.place(x=0, y=500)[m
+[36m@@ -274,8 +260,9 @@[m [mdef go_and_destroy_cavnas():[m
+ # History fake[m
+ def go_toprofile(self):[m
+     try:[m
+[31m-        global iaminprofilifiamin2, u_t, track_canvas, s_t[m
+[32m+[m[32m        global iaminprofilifiamin2, u_t, track_canvas, s_t, track_profile[m
+         iaminprofilifiamin2 = 2[m
+[32m+[m[32m        track_profile = 1[m
+         bike_upload_frame.place_forget()[m
+         look_uploadsmain.place(x=254, y=109)[m
+         profile.config(bg='orange')[m
+[36m@@ -285,11 +272,14 @@[m [mdef go_toprofile(self):[m
+         services.config(bg='orange2')[m
+         bike.config(bg='orange2')[m
+ [m
+[32m+[m[32m        # if('canvass'  locals()):[m
+         go_and_destroy_cavnas()[m
+         track_canvas = 0[m
+ [m
+     except Exception as e:[m
+[31m-        messagebox.showinfo('error', 'Pleased follow the rule.')[m
+[32m+[m[32m        # print(e)[m
+[32m+[m[32m        print('Canvas is not madetillnow')[m
+[32m+[m[32m        # messagebox.showinfo('error', 'Pleased follow the rule.')[m
+ [m
+         # print(e)[m
+ [m
+[36m@@ -306,6 +296,12 @@[m [mdef bike_uploaded_click(event):[m
+     try:[m
+         # messagebox.showerror('a')[m
+         global iaminprofilifiamin2, track_canvas, u_t, s_t, track_up[m
+[32m+[m
+[32m+[m
+[32m+[m[32m# Destory the complain page[m
+[32m+[m[32m        # import complain[m
+[32m+[m[32m        # complain.frame.place_forget()[m
+[32m+[m
+         if (track_up == 2):[m
+             # messagebox.showinfo('info', 'This')[m
+             pass[m
+[36m@@ -338,8 +334,18 @@[m [mbike__image = ''[m
+ def bike_upload():[m
+     try:[m
+         def upload_bike():[m
+[32m+[m[32m            # messagebox.showinfo('eror','What is your name')[m
+             try:[m
+                 global bike__image, file__, resize_Bike[m
+[32m+[m[32m                sql100 = 'SELECT * FROM BikeBreezeuser WHERE username =%s'[m
+[32m+[m[32m                value100 = (username_from_back, )[m
+[32m+[m[32m                cur_sor.execute(sql100, value100)[m
+[32m+[m[32m                datassss__ = cur_sor.fetchone()[m
+[32m+[m[32m                # print(lendatassss__,'HELLO')[m
+[32m+[m[32m                if(len(datassss__)<8):[m
+[32m+[m[32m                    messagebox.showinfo('info','Pleased upload profilepicture first')[m
+[32m+[m[32m                    return[m
+[32m+[m[32m                # global bike__image, file__, resize_Bike[m
+                 filepath = filedialog.askopenfilename([m
+                     filetypes=[("Image Files", "*.png;*.jpg;*.jpeg;*.gif")])[m
+                 if (filepath):[m
+[36m@@ -362,6 +368,7 @@[m [mdef bike_upload():[m
+                     uploading_img1Bike = ImageTk.PhotoImage(resize_Bike)[m
+                     bike_label.config(image=uploading_img1Bike)[m
+                     bike_label.image = uploading_img1Bike[m
+[32m+[m[32m                    # 372k[m
+             except Exception as e:[m
+                 messagebox.showinfo('error', 'Pleased follow the rule.')[m
+                 # print(e)[m
+[36m@@ -651,7 +658,7 @@[m [mdef bike_upload():[m
+                          bg="white", font="Courier 14 bold")[m
+         conditon.place(x=15, y=350)[m
+         bike_conditon = Entry(frame, width=20, borderwidth=3,[m
+[31m-                              font="Courier 14 bold", bg='red')[m
+[32m+[m[32m                              font="Courier 14 bold")[m
+         bike_conditon.place(x=140, y=350)[m
+ [m
+         btn = Button(frame, text="Post", fg="white", width=10, borderwidth=2,[m
+[36m@@ -1138,13 +1145,10 @@[m [mdef go_to_theservicespage(event):[m
+         for i in range(0, len(_data____s)):[m
+             if (_data____s[i][9].strip() == 'No'):[m
+                 continue[m
+[31m-            # print(_data____s[i])[m
+[31m-            # if(t_l == 0):[m
+[31m-            # messagebox.showinfo('info',f'INFO{_data____s[i][9].strip()}')[m
+             sql_ = 'SELECT * FROM BikeBreezeuser WHERE username = %s'[m
+             print(_data____s[i][3], 'Bitch')[m
+             # value__ = (_data____s[i][3],)[m
+[31m-            value__ = (username_from_back,)[m
+[32m+[m[32m            value__ = (_data____s[i][3],)[m
+             cur_sor.execute(sql_, value__)[m
+             d__ = cur_sor.fetchone()[m
+             print(d__, 'Hey bic')[m
+[36m@@ -1159,7 +1163,7 @@[m [mdef go_to_theservicespage(event):[m
+                 r__ += 1[m
+ [m
+             item_frame__ = tk.Frame([m
+[31m-                canvas_frame, width=610, height=433, borderwidth=1, relief=tk.RAISED, padx=12, pady=12, bg='lightgray')[m
+[32m+[m[32m                canvas_frame, width=610, height=433, borderwidth=1, relief=tk.RAISED, padx=12, pady=12, bg='red')[m
+             item_frame__.grid(row=r__, column=k, padx=12, pady=12)[m
+             custom_font = font.Font([m
+                 family="Helvetica", size=16, weight="bold", underline=True)[m
+[36m@@ -1195,6 +1199,7 @@[m [mdef go_to_theservicespage(event):[m
+             available_or_not___ = tk.Button([m
+                 item_frame__, text='Add to card', fo

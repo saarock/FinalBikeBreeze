@@ -9,7 +9,7 @@ from tkinter import ttk
 from datetime import datetime, date
 # from tkinter import font
 import traceback
-
+# setting
 
 # Pickle for the cache the user data
 import pickle
@@ -28,30 +28,13 @@ root.title("BikeBreeze")
 root.minsize(1200, 1000)
 root.state('zoomed')
 
-
+# root.geometry('200x300')
 # Disable window resizing
 root.resizable(False, False)
 
 
-# from client import socket
 
-# def get_data():
-#     global data_s
-#     try:
-#         file = 'username.pkl'
-#         # fileobj = open(file, 'rb')
-#         # data_s = pickle.load(fileobj)
-#         # print(data_s, 'THETHE')
-#         # fileobj.close()
-#         file = 'username.pkl'
-#         with open(file, 'rb') as fileobj:
-#           data_s = pickle.load(fileobj)
-#           print(data_s, 'THETHE')
-#     except TypeError or FileNotFoundError as e:
-#         import signup
-
-
-# get_data()
+# Setting
 
 def get_data():
     global data_s
@@ -61,7 +44,6 @@ def get_data():
             data_s = pickle.load(fileobj)
         print(data_s, 'THETHE')
         # Rest of your code...
-
     except Exception as e:
         print("An exception occurred:", type(e).__name__)
         print("Exception details:", str(e))
@@ -70,7 +52,7 @@ def get_data():
         root.destroy()
         import signup
 
-
+        
 # Call the get_data() function
 get_data()
 
@@ -88,7 +70,11 @@ email_from_back = ''
 contact_from_back = ''
 track_up = 1
 s_t = 0
+track_profile = 0
+so_ = 1
 
+# Make a logout system
+log_out = False
 
 def check_user_is_login_or_not():
     try:
@@ -142,8 +128,12 @@ trac_big_frame_for_search = 1
 
 def go_for_bikes():
     try:
-
         global go_for_bikes, track_home
+
+        # Make forget to the complain page
+        import complain
+        complain.frame.place_forget()
+
         # from client import socket
         track_home = 1
        #  mainframe.pack()
@@ -237,6 +227,7 @@ def go_home(event):
                        font=for_l_sm_fon, bg='#f15d43', command=go_for_bikes)
         b1.place(x=233, y=199)
         track_home += 1
+        # Logout
 
         # _home_nav = Frame(Home_FRAME, bg='white', height=100, width=1510)
         # _home_nav.place(x=0, y=500)
@@ -274,8 +265,9 @@ def go_and_destroy_cavnas():
 # History fake
 def go_toprofile(self):
     try:
-        global iaminprofilifiamin2, u_t, track_canvas, s_t
+        global iaminprofilifiamin2, u_t, track_canvas, s_t, track_profile
         iaminprofilifiamin2 = 2
+        track_profile = 1
         bike_upload_frame.place_forget()
         look_uploadsmain.place(x=254, y=109)
         profile.config(bg='orange')
@@ -285,11 +277,14 @@ def go_toprofile(self):
         services.config(bg='orange2')
         bike.config(bg='orange2')
 
+        # if('canvass'  locals()):
         go_and_destroy_cavnas()
         track_canvas = 0
 
     except Exception as e:
-        messagebox.showinfo('error', 'Pleased follow the rule.')
+        # print(e)
+        print('Canvas is not madetillnow')
+        # messagebox.showinfo('error', 'Pleased follow the rule.')
 
         # print(e)
 
@@ -306,6 +301,12 @@ def bike_uploaded_click(event):
     try:
         # messagebox.showerror('a')
         global iaminprofilifiamin2, track_canvas, u_t, s_t, track_up
+
+
+# Destory the complain page
+        # import complain
+        # complain.frame.place_forget()
+
         if (track_up == 2):
             # messagebox.showinfo('info', 'This')
             pass
@@ -338,8 +339,18 @@ bike__image = ''
 def bike_upload():
     try:
         def upload_bike():
+            # messagebox.showinfo('eror','What is your name')
             try:
                 global bike__image, file__, resize_Bike
+                sql100 = 'SELECT * FROM BikeBreezeuser WHERE username =%s'
+                value100 = (username_from_back, )
+                cur_sor.execute(sql100, value100)
+                datassss__ = cur_sor.fetchone()
+                # print(lendatassss__,'HELLO')
+                if(len(datassss__)<8):
+                    messagebox.showinfo('info','Pleased upload profilepicture first')
+                    return
+                # global bike__image, file__, resize_Bike
                 filepath = filedialog.askopenfilename(
                     filetypes=[("Image Files", "*.png;*.jpg;*.jpeg;*.gif")])
                 if (filepath):
@@ -362,6 +373,7 @@ def bike_upload():
                     uploading_img1Bike = ImageTk.PhotoImage(resize_Bike)
                     bike_label.config(image=uploading_img1Bike)
                     bike_label.image = uploading_img1Bike
+                    # 372k
             except Exception as e:
                 messagebox.showinfo('error', 'Pleased follow the rule.')
                 # print(e)
@@ -651,7 +663,7 @@ def bike_upload():
                          bg="white", font="Courier 14 bold")
         conditon.place(x=15, y=350)
         bike_conditon = Entry(frame, width=20, borderwidth=3,
-                              font="Courier 14 bold", bg='red')
+                              font="Courier 14 bold")
         bike_conditon.place(x=140, y=350)
 
         btn = Button(frame, text="Post", fg="white", width=10, borderwidth=2,
@@ -1138,13 +1150,10 @@ def go_to_theservicespage(event):
         for i in range(0, len(_data____s)):
             if (_data____s[i][9].strip() == 'No'):
                 continue
-            # print(_data____s[i])
-            # if(t_l == 0):
-            # messagebox.showinfo('info',f'INFO{_data____s[i][9].strip()}')
             sql_ = 'SELECT * FROM BikeBreezeuser WHERE username = %s'
             print(_data____s[i][3], 'Bitch')
             # value__ = (_data____s[i][3],)
-            value__ = (username_from_back,)
+            value__ = (_data____s[i][3],)
             cur_sor.execute(sql_, value__)
             d__ = cur_sor.fetchone()
             print(d__, 'Hey bic')
@@ -1159,7 +1168,7 @@ def go_to_theservicespage(event):
                 r__ += 1
 
             item_frame__ = tk.Frame(
-                canvas_frame, width=610, height=433, borderwidth=1, relief=tk.RAISED, padx=12, pady=12, bg='lightgray')
+                canvas_frame, width=610, height=433, borderwidth=1, relief=tk.RAISED, padx=12, pady=12, bg='red')
             item_frame__.grid(row=r__, column=k, padx=12, pady=12)
             custom_font = font.Font(
                 family="Helvetica", size=16, weight="bold", underline=True)
@@ -1195,6 +1204,7 @@ def go_to_theservicespage(event):
             available_or_not___ = tk.Button(
                 item_frame__, text='Add to card', font=custom_font, bg='pink', command=lambda bike_id=bike_id, owner_id____=owner_id____,   d__=d__, bike_price=bike_price__, b_i=b_img, bike_owner_phonenumber=bikeowner_pnumber: add_to_card(bike_id, owner_id____, d__, bike_price, b_i, bike_owner_phonenumber))
             available_or_not___.place(x=23, y=266)
+            print(_data____s[i],'IDICHCHHA GAUTAM')
             i_img = Image.open(f'uploadedbike/{_data____s[i][10]}')
             hhh = 300
             www = 400
@@ -1254,6 +1264,12 @@ def go_to_theservicespage(event):
 # For the setting
 def setting(event):
     import setting
+    setting.frame.place(x=230, y=404)
+ 
+    # print('ohbabyyes')
+    
+
+    # if(setting.)
 
 
 def navs():
@@ -1284,6 +1300,8 @@ def navs():
         first_name = tk.Label(mainframe, text='Aayush\nBasnet',
                               font=35, bg='orange2', fg='black')
         first_name.place(x=73, y=210)
+
+        # Upload Image
 
 # for support
         gmail = tk.Label(amainframe, text="for support mail us at\nbikebreeze1025@gmail.com",
@@ -1563,6 +1581,7 @@ def navs():
 
 # All the hover method
 
+
         def hover(event):
             bike.config(bg='orange')
             pass
@@ -1586,6 +1605,30 @@ def navs():
 
         def hl(event):
             con.config(bg='orange2')
+
+
+        def hover_profile(event):
+            # messagebox.showerror('erryr', 'WHAT IIS')
+            profile.config(bg='orange')
+            pass
+
+
+
+
+        def leave_profile(event):        
+         if( so_  is not 1 or s_t== 1 or u_t==1):
+            # return
+            profile.config(bg='orange2')
+            return
+            # pass
+
+
+        
+
+        # Contact page
+        def contact_page(event):
+            import contact
+            contact.contact_frame.place(x=253, y=300)
 
         search1 = Text(amainframe, width=55, height=2, fg='black')
         search1.place(x=370, y=15)
@@ -1648,6 +1691,8 @@ def navs():
                            font=f, width=23, highlightthickness=0, cursor="hand2")
         profile.place(x=0, y=390)
         profile.bind("<Button-1>", go_toprofile)
+        profile.bind('<Enter>' , hover_profile)
+        profile.bind('<Leave>', leave_profile)
         for_profile = Image.open('p.png')
         servh = 18
         servw = 18
@@ -1758,7 +1803,7 @@ def navs():
         con = tk.Label(mainframe, text="Contact", bg="orange2", fg="white",
                        font=f, width=23, highlightthickness=0, cursor="hand2")
         con.place(x=3, y=490)
-        con.bind("<Button-1>", dod)
+        con.bind("<Button-1>", contact_page)
         con.bind("<Enter>", dod)
         con.bind("<Leave>", hl)
         for_con = Image.open('c.png')
@@ -1784,17 +1829,17 @@ def navs():
         sett_image.image = sett_img
         sett_image.place(x=49, y=540)
 
-        log = tk.Label(mainframe, text="Logout", bg="orange2", fg="white",
-                       font="comicsansns 15 bold", width=15, highlightthickness=0, cursor="hand2")
-        log.place(x=0, y=660)
-        for_log = Image.open('logout.png')
-        servh = 50
-        servw = 50
-        resize_log = for_log.resize((servw, servh), Image.LANCZOS)
-        log_img = ImageTk.PhotoImage(resize_log)
-        log_image = tk.Label(mainframe, image=log_img)
-        log_image.image = log_img
-        log_image.place(x=65, y=600)
+        # log = tk.Label(mainframe, text="Logout", bg="orange2", fg="white",
+        #                font="comicsansns 15 bold", width=15, highlightthickness=0, cursor="hand2")
+        # log.place(x=0, y=660)
+        # for_log = Image.open('logout.png')
+        # servh = 50
+        # servw = 50
+        # resize_log = for_log.resize((servw, servh), Image.LANCZOS)
+        # log_img = ImageTk.PhotoImage(resize_log)
+        # log_image = tk.Label(mainframe, image=log_img)
+        # log_image.image = log_img
+        # log_image.place(x=65, y=600)
 
         change_button = tk.Button(mainframe, text='Change Profie', fg='white', font=(
             'Poppins', 15), command=change_profile, bg='orange', highlightbackground='white', highlightthickness=1, border=1, cursor='hand2')
@@ -1807,13 +1852,51 @@ def navs():
 navs()
 
 
-# Information of User
-# canvass
+# get the user moneydetails
+keepthe_money = ''
 
-def profies():
 
+def get_the_usermoney():
     try:
-        global look_uploadsmain, P1_label, iaminprofilifiamin2, look_uploadsmain
+        global keepthe_money
+        sql100 = 'SELECT * FROM usermoney WHERE username= %s'
+        value100 = (username_from_back,)
+        cur_sor.execute(sql100, value100)
+        alltheuserdata_related_to_themoney = cur_sor.fetchone()
+        print(alltheuserdata_related_to_themoney, 'THE THINGS IS THE MAIN')
+        label_money.config(text=f'{alltheuserdata_related_to_themoney[3]}K')
+        keepthe_money = alltheuserdata_related_to_themoney[3]
+    except Exception as e:
+        messagebox.showerror('error', e)
+
+
+# Refereshmoney
+def referesh_money():
+    get_the_usermoney()
+
+# Show the money
+
+
+def show():
+    label_for_h.place_forget()
+    label_for_s.place(x=226, y=23)
+    hide_label_money.place_forget()
+
+    # messagebox.showinfo('a')
+
+
+def hide():
+    label_for_h.place(x=226, y=23)
+    label_for_s.place_forget()
+    hide_label_money.place(x=20, y=20)
+
+    # label_money.config(show='*')
+
+
+# Information of User
+def profies():
+    try:
+        global look_uploadsmain, P1_label, iaminprofilifiamin2, look_uploadsmain, label_for_h, label_for_s, label_money, hide_label_money
         iaminprofilifiamin2 = 2
 
         def show_send_money(self):
@@ -1823,11 +1906,9 @@ def profies():
             canvas_toshowthetrasation.place(x=103, y=324)
             show_all3.config(bg='lightgray')
             label_c.config(bg='lightgray')
-
             frame_for_upload.place_forget()
             import complain
             complain.frame.place_forget()
-
 
         def complain(self):
             label_show_all_bikes.config(bg='lightgray')
@@ -1874,7 +1955,6 @@ def profies():
                 name_bike.config(text='')
                 location_bike__.insert(0, f'{datas[5]}')
                 bike_day.insert(0, datas[8])
-
                 u_n = name_username.get()
                 b_n = name_bike.get()
                 p_n = phone_number.get()
@@ -1888,9 +1968,11 @@ def profies():
             except Exception as e:
                 messagebox.showerror('error', 'Pleased floow the rule.')
                 # print(e)
+                # Profile
 
         def changethebikeupload_detals():
             pass
+
         label_font = font.Font(family="Helvetica", size=11, weight="bold")
 
         # track_canvas = 1
@@ -1899,7 +1981,7 @@ def profies():
         h_1 = 1000
         b_i1 = backgroundimage_oftheprofile.resize((w_1, h_1), Image.LANCZOS)
         b__i1 = ImageTk.PhotoImage(b_i1)
-        look_uploadsmain = tk.Frame(root, height=645, width=1234, bg='white',)
+        look_uploadsmain = tk.Frame(root, height=645, width=1234, bg='black',)
         look_uploadsmain.place(x=254, y=109)
         _imageback1 = tk.Label(look_uploadsmain, image=b__i1)
         _imageback1.image = b__i1
@@ -1945,8 +2027,10 @@ def profies():
         look_money.place(x=603, y=23)
         #  Custum font
         c = font.Font(size=39)
-        label = tk.Label(look_money, text='372K', bg='snow', font=c)
-        label.place(x=20, y=20)
+        label_money = tk.Label(look_money, text='372K', bg='snow', font=c)
+        label_money.place(x=20, y=20)
+        hide_label_money = tk.Label(look_money, text='***********', font=c)
+        hide_label_money.place(x=20, y=20)
 # 1025
         show_all = tk.Frame(look_uploadsmain, width=1128,
                             height=34, bg='snow',)
@@ -1965,18 +2049,37 @@ def profies():
         # show upload bike of user only start
         # ////////////////////////////////////////
         # ////////////////////////////////////////
+        # for refersh
         label_font2 = font.Font(family="Helvetica", size=9, weight="bold")
+        referesh_money_icon = Image.open('images/referesh.png')
+        h_r = 50
+        w_r = 50
+        make_hand_w = referesh_money_icon.resize((w_r, h_r), Image.LANCZOS)
+        img_tk = ImageTk.PhotoImage(make_hand_w)
+        label_for_r_m = tk.Button(
+            look_money, image=img_tk, command=referesh_money)
+        label_for_r_m.image = img_tk
+        label_for_r_m.place(x=496, y=0)
 
-        # fOR TRACKING THE DEFAULT DATA
-        # u_n = ''
-        # b_n = ''
-        # p_n = ''
-        # # a_n = ''
-        # l_n = ''
-        # b_i = ''
+        # For hide
+        hide_money_icon = Image.open('images/hide.png')
+        make_hand_h = hide_money_icon.resize((w_r, h_r), Image.LANCZOS)
+        img_tk_h = ImageTk.PhotoImage(make_hand_h)
+        label_for_h = tk.Button(look_money, image=img_tk_h, command=show)
+        label_for_h.image = img_tk_h
+        label_for_h.place(x=226, y=23)
 
-        # b_d = ''
-        # Lets get all the informationhere
+        # For show
+        hide_money_icon = Image.open('images/show.png')
+        make_hand_s = hide_money_icon.resize((w_r, h_r), Image.LANCZOS)
+        img_tk_s = ImageTk.PhotoImage(make_hand_s)
+        label_for_s = tk.Button(look_money, image=img_tk_s, command=hide)
+        label_for_s.image = img_tk_s
+        label_for_s.place(x=226, y=23)
+
+        hide()
+
+        get_the_usermoney()
 
         def enter_pass():
             try:
@@ -2017,6 +2120,7 @@ def profies():
                 enterpassword.frame.place(x=230, y=404)
                 enterpassword.get_the_password(pass_from_back, user__name, bike__name,
                                                phone_number__, bike_price____, available_or_not__, location__, days__, u_n)
+                # Transaction1
 
             except Exception as e:
                 print(e)
@@ -2047,7 +2151,8 @@ def profies():
         show_all2 = tk.Frame(show_all, height=64, width=502, cursor='hand2',
                              bg="lightgray", borderwidth=1, relief=tk.RAISED)
         show_all2.place(x=320)
-        label_show_all_bikes = tk.Label(show_all2, text='You bike', font=17, bg='lightgray')
+        label_show_all_bikes = tk.Label(
+            show_all2, text='You bike', font=17, bg='lightgray')
         label_show_all_bikes.place(x=232, y=2)
         label_show_all_bikes.bind('<Button-1>', show_my_upload_bike)
         # Complain
@@ -2116,7 +2221,7 @@ def profies():
         bike_loc = Label(frame_for_upload, text='Location', font=label_font2,
                          bg="white", fg="black", padx=10, relief=tk.RAISED, borderwidth=2)
         bike_loc.place(x=12, y=176)
-
+# transitionofbikes
         location_bike__ = ttk.Entry(
             frame_for_upload, text='Available', width=30)
         location_bike__.place(x=12, y=196)
@@ -2222,9 +2327,11 @@ def profies():
         canvas_toshowthetrasation.bind("<Configure>", configure_canvas)
         # canvas_toshowthetrasation.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-        forallthe_frame = tk.Frame(canvas_toshowthetrasation, bg='white')
+        forallthe_frame = tk.Frame(canvas_toshowthetrasation, bg='black')
         canvas_toshowthetrasation.create_window(
             (0, 0), window=forallthe_frame, anchor=tk.NW)
+        
+
 
         sql13 = 'SELECT * FROM transitionofbikes WHERE senderid = %s OR receiverid = %s'
         value13 = (username_from_back, username_from_back)
@@ -2291,15 +2398,21 @@ def profies():
                 # r+=1
                 c += 1
         else:
-            frame_not_found = tk.Frame(forallthe_frame, height=122, width=722,)
+            frame_not_found = tk.Frame(forallthe_frame, height=122, width=722)
             frame_not_found.pack()
             label_not_found = tk.Label(
                 frame_not_found, text='Not found any history', font=label_font2)
             label_not_found.place(x=522)
 
     except Exception as e:
-        print(e)
-        messagebox.showinfo('error', 'Pleased follow the rule.')
+            frame_not_found = tk.Frame(forallthe_frame, height=122, width=722,)
+            frame_not_found.pack()
+            label_not_found = tk.Label(
+            frame_not_found, text='Not found any history', font=label_font2)
+            label_not_found.place(x=522)
+            print('No history')
+        # messagebox.showinfo('error', 'Pleased follow the rule.haha')
+
 
         # print(e)
 # ///////////////////////////////////////////////////////////////////////////////
@@ -2337,12 +2450,7 @@ def check():
         # print(images, 'THIS IS THE IMAEG GORKHA')
 
         if (len(images[0][0]) > 0):
-            #      folder_path = "profileimage/"
-            #      file_name = os.listdir(folder_path)
-            #      if(len(file_name)>0):
-            #       file_path = os.path.join(str(folder_path), str(file_name[0]))
-            #       with open(file_path, 'rb') as file:
-            # print(images[0][0], 'll')
+            print(str(images[0][0]))
             profile_img11 = Image.open(f'profileimage/{str(images[0][0])}')
         #    print(file,'thsithis')
             servh = 108
@@ -2358,8 +2466,8 @@ def check():
             messagebox.showinfo('info', 'SomeThingWrong..')
             #    messagebox.showinfo('info','Showerror')
     except Exception as e:
-        # print(e)
-        messagebox.showinfo('error', 'Pleased follow the rule.')
+        print(e)
+        # messagebox.showinfo('error', 'Pleased follow the rule.haah')
 
 
 check()
@@ -2371,5 +2479,5 @@ check()
 # /////////////////////////////////////
 # /////////////////////////////////////
 
-
+# setting
 root.mainloop()
