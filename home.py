@@ -89,6 +89,7 @@ def check_user_is_login_or_not():
             username_from_back = data_s[0][2]
             email_from_back = data_s[0][4]
             pass_from_back = data_s[0][5]
+            # save
 
             print(data_s, 'HELLO HERO')
             # print(data_s[0][4])
@@ -339,7 +340,7 @@ bike__image = ''
 def bike_upload():
     try:
         def upload_bike():
-            # messagebox.showinfo('eror','What is your name')
+            # messagebox.showinf    o('eror','What is your name')
             try:
                 global bike__image, file__, resize_Bike
                 sql100 = 'SELECT * FROM BikeBreezeuser WHERE username =%s'
@@ -604,6 +605,7 @@ def bike_upload():
         bike_label = Label(bike_upload_frame, text="Bike", image=bikeImage)
         bike_label.image = bikeImage
         bike_label.place(x=210, y=150)
+        
 
 # button
         button = Button(bike_upload_frame, text="Upload Image", bg="Skyblue", fg="black",
@@ -2147,12 +2149,11 @@ def profies():
                     'error', 'Something wrong pleased try again.')
 
                 # goand_bring_the_bike_details()
-
         show_all2 = tk.Frame(show_all, height=64, width=502, cursor='hand2',
                              bg="lightgray", borderwidth=1, relief=tk.RAISED)
         show_all2.place(x=320)
         label_show_all_bikes = tk.Label(
-            show_all2, text='You bike', font=17, bg='lightgray')
+            show_all2, text='Your bike', font=17, bg='lightgray')
         label_show_all_bikes.place(x=232, y=2)
         label_show_all_bikes.bind('<Button-1>', show_my_upload_bike)
         # Complain
@@ -2161,6 +2162,12 @@ def profies():
         show_all1buttom2 = tk.Frame(show_all2, width=502, height=5,
                                     cursor='hand2', bg="lightgray", borderwidth=1, relief=tk.RAISED)
         show_all1buttom2.place(x=0, y=60)
+
+
+
+
+# Transaction1
+       
 
 # /////////////////////////////////////////////
 # /////////////////////////////////////////////
@@ -2251,6 +2258,10 @@ def profies():
         ww = 200
         # complain
 
+
+
+        # Your bike
+
         biimage = Image.open('delete.png')
         upbikeimage = biimage.resize((ww, hh), Image.LANCZOS)
         bi = ImageTk.PhotoImage(upbikeimage)
@@ -2258,6 +2269,15 @@ def profies():
         label_bike.image = bi
         label_bike.place(x=700)
         goand_bring_the_bike_details()
+
+
+
+        # Click and then referesh the bike details
+        a = ttk.Button(text='Referesh upload bike', cursor='hand2', command=goand_bring_the_bike_details)
+        style.configure('TButton', font=('American typewriter', 14), background='#232323', foreground='white')
+        a.place(x=253,y=69)
+    
+
 
         # Transaction1
 
@@ -2287,7 +2307,7 @@ def profies():
             show_all3, width=502, height=6,  background='blue', cursor='hand2', )
         show_all1buttom2.place(x=0, y=60)
         l = tk.Label(show_all, text='Transaction1', bg='orange',
-                     font='comicsansns 13 bold', width=23, height=2)
+                     font='comicsansns 13 bold', width=23, height=2, cursor='hand2')
         l.place(x=0)
         l.bind('<Button-1>', show_send_money)
 
@@ -2472,12 +2492,25 @@ def check():
 
 check()
 
+# You bike
+
 
 # /////////////////////////////////////
 # /////////////////////////////////////
 # If user upload the profilepicture END
 # /////////////////////////////////////
 # /////////////////////////////////////
+
+
+
+
+def reload():
+    a = ttk.Button(text='Referesh upload bike', cursor='hand2')
+    style.configure('TButton', font=('American typewriter', 14), background='#232323', foreground='white')
+    a.place(x=253,y=69)
+
+
+# reload()
 
 # setting
 root.mainloop()
