@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import *
 from PIL import ImageTk, Image
-from tkinter import ttk
 from tkinter import Text, font,  messagebox, filedialog
 from database import *
 import bcrypt
@@ -228,6 +227,31 @@ def go_home(event):
                        font=for_l_sm_fon, bg='#f15d43', command=go_for_bikes)
         b1.place(x=233, y=199)
         track_home += 1
+
+
+        i_ = Image.open('images/h.png')
+        h__ = 362
+        w__ = 632
+        i__ = i_.resize((w__, h__),Image.LANCZOS)
+        k = ImageTk.PhotoImage(i__)
+
+        label_i_= Label(Home_FRAME, text='Hello', image=k, bg='black')
+        label_i_.image = k
+        label_i_.place(x=823, y=366)
+
+        # bikename
+
+
+
+        i_ = Image.open('images/vv.png')
+        h___ = 362
+        w___= 632
+        i___ = i_.resize((w___, h___),Image.LANCZOS)
+        k_ = ImageTk.PhotoImage(i___)
+
+        label_i__= Label(Home_FRAME, text='Hello', image=k_, bg='black')
+        label_i__.image = k_
+        label_i__.place(x=123, y=346)
         # Logout
 
         # _home_nav = Frame(Home_FRAME, bg='white', height=100, width=1510)
@@ -356,8 +380,6 @@ def bike_upload():
                     filetypes=[("Image Files", "*.png;*.jpg;*.jpeg;*.gif")])
                 if (filepath):
                     file__ = os.path.basename(filepath)
-                    # GORKHA
-                    # print(1)
                     # print(file__, 'saarock')
                     bike__image = str(file__)
                     # print(2)
@@ -583,10 +605,12 @@ def bike_upload():
             root, height=644, width=1244, bg='white', borderwidth=1, relief=tk.RAISED)
 
         bike_upload_frame.place_forget()
-        bike_name = tk.Label(bike_upload_frame, text='bikename')
-        #    bike_name.place(x=12)
-        #    bikename_Text = tk.Text(bike_upload_frame, width=12)
-        bike_name.place(x=122)
+
+        # red
+        # bike_name = tk.Label(bike_upload_frame, text='bikeneeame')
+        # #    bike_name.place(x=12)
+        # #    bikename_Text = tk.Text(bike_upload_frame, width=12)
+        # bike_name.place(x=122)
 
        #  red
         frame = Frame(bike_upload_frame, width=450,
@@ -1170,7 +1194,7 @@ def go_to_theservicespage(event):
                 r__ += 1
 
             item_frame__ = tk.Frame(
-                canvas_frame, width=610, height=433, borderwidth=1, relief=tk.RAISED, padx=12, pady=12, bg='red')
+                canvas_frame, width=610, height=433, borderwidth=1, relief=tk.RAISED, padx=12, pady=12)
             item_frame__.grid(row=r__, column=k, padx=12, pady=12)
             custom_font = font.Font(
                 family="Helvetica", size=16, weight="bold", underline=True)
@@ -1928,10 +1952,17 @@ def profies():
         #     messagebox.showerror('er','info')
         #     pass
 
+        k_t= 0
+
         def goand_bring_the_bike_details():
             try:
                 # pass
                 global u_n, b_n, p_n, l_n, b_i, a_n, b_c, b_d
+                nonlocal k_t
+
+                if(k_t>=1 and not b_n == 'no'):
+                    return
+                k_t += 1
                 sql = 'SELECT * FROM userbikes WHERE userid=%s'
                 value = (user_id_from_back,)
                 cur_sor.execute(sql, value)
@@ -2188,6 +2219,7 @@ def profies():
         bike_namelabel.place(x=12, y=25)
         name_bike = ttk.Entry(frame_for_upload, width=30, )
         name_bike.place(x=12, y=43)
+        name_bike.insert(0, 'no')
 
         username_bikeo = Label(frame_for_upload, text=f'username', font=label_font2,
                                bg="white", fg="black", padx=10, relief=tk.RAISED, borderwidth=2)
