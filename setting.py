@@ -21,6 +21,7 @@ def log_out():
             return
             os.remove('username.pkl')
             t_or_false = True
+            
         else:
             messagebox.showerror('error', 'SomeThingwrong')
     except Exception as e:
